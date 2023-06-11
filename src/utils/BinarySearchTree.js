@@ -27,31 +27,41 @@ export class PrimaryHealthCareBST {
   }
   #traverseInsert(node, data) {
     if (data.province < node.data.province) {
-      if (!node.L) {
+      if (!node?.L) {
         node.L = new Node(data);
         node.L.P = node;
         return;
       }
-      return this.#traverseInsert(node.L, data);
+      return this.#traverseInsert(node?.L, data);
     } else if (data.province > node.data.province) {
-      if (!node.R) {
+      if (!node?.R) {
         node.R = new Node(data);
         node.R.P = node;
         return;
       }
-      return this.#traverseInsert(node.R, data);
+      return this.#traverseInsert(node?.R, data);
     } else {
       return `${data.province}, already in Binary Search Tree.`;
     }
   }
+  /**
+   *
+   * @param {string} provinceName
+   * @returns Boolean
+   */
   hasProvince(provinceName) {
     let node = this.#root;
     if (provinceName) {
-      while (node.data.province !== provinceName) {
-        if (provinceName < node.data.province) {
-          node = node.L;
-        } else if (provinceName > node.data.province) {
-          node = node.R;
+      const regex = new RegExp(provinceName, "i");
+
+      while (!regex.test(node.data.province)) {
+        let province = node.data.province.toLowerCase();
+        provinceName = provinceName.toLowerCase();
+
+        if (provinceName < province) {
+          node = node?.L;
+        } else if (provinceName > province) {
+          node = node?.R;
         }
         if (!node) {
           return false;
@@ -62,121 +72,164 @@ export class PrimaryHealthCareBST {
       return `province name is null, enter province name parameter.`;
     }
   }
-  searchByProvince(name) {
+  /**
+   *
+   * @param {String} name
+   * @param {Object} node
+   * @param {Array} provinceSuggestions
+   * @returns Array of Objects or String.
+   */
+  searchByProvince(name, node = this.#root, provinceSuggestions = []) {
     try {
-      let node = arguments[1] || this.#root;
-      let provinceSuggestions = arguments[2] || [];
-      const regex = new RegExp(name, "i");
-      if (regex.test(node.data.province)) {
-        provinceSuggestions.push(node.data);
+      if (node) {
+        const regex = new RegExp(name, "i");
+        if (regex.test(node.data.province)) {
+          provinceSuggestions.push(node.data);
+        }
+        provinceSuggestions.concat(
+          this.searchByProvince(name, node.L, provinceSuggestions)
+        );
+        provinceSuggestions.concat(
+          this.searchByProvince(name, node.R, provinceSuggestions)
+        );
+        return provinceSuggestions.length
+          ? provinceSuggestions
+          : `No province with such name: ${name}`;
       }
-      provinceSuggestions.concat(
-        this.searchByProvince(name, node.L, provinceSuggestions)
-      );
-      provinceSuggestions.concat(
-        this.searchByProvince(name, node.R, provinceSuggestions)
-      );
-      return provinceSuggestions.length
-        ? provinceSuggestions
-        : `No province with such name: ${name}`;
+    } catch (error) {
+      console.error(error);
+      return;
+    }
+  }
+  /**
+   *
+   * @param {String} name
+   * @param {Object} node
+   * @param {Array} provinceSuggestions
+   * @returns Array of Objects or String.
+   */
+  searchByDistrict(name, node = this.#root, districtHealthFacilities = []) {
+    try {
+      if (node) {
+        const regex = new RegExp(name, "i");
+
+        for (let districtName of node.data["districts"]["district_names"]) {
+          if (regex.test(districtName)) {
+            districtHealthFacilities.push(
+              ...node.data["health_facilities"]["facilities"][
+                districtName.replace(/ /g, "_")
+              ]
+            );
+          }
+        }
+        districtHealthFacilities.concat(
+          this.searchByDistrict(name, node?.L, districtHealthFacilities)
+        );
+        districtHealthFacilities.concat(
+          this.searchByDistrict(name, node?.R, districtHealthFacilities)
+        );
+        return districtHealthFacilities.length
+          ? districtHealthFacilities
+          : `No district with such name: ${name}`;
+      }
     } catch (error) {
       console.error(error);
     }
   }
-  searchByDistrict(name) {
+  /**
+   *
+   * @param {String} name
+   * @param {Object} node
+   * @param {Array} provinceSuggestions
+   * @returns Array of Objects or String.
+   */
+  searchByMunicipality(
+    name,
+    node = this.#root,
+    municipalHealthCareFacilities = []
+  ) {
     try {
-      let node = arguments[1] || this.#root;
-      let districtHealthFacilities = arguments[2] || [];
-      const regex = new RegExp(name, "i");
+      if (node) {
+        const regex = new RegExp(name, "i");
 
-      for (let districtName of node.data.district["district_names"]) {
-        if (regex.test(districtName)) {
-          //   districtHealthFacilities.push(node.data);
-          districtHealthFacilities.concat(
+        for (let districtName of node.data["districts"]["district_names"]) {
+          let districtHealthFacilites =
             node.data["health_facilities"]["facilities"][
               districtName.replace(/ /g, "_")
-            ]
-          );
+            ];
+
+          for (let facility of districtHealthFacilites) {
+            if (
+              regex.test(
+                facility["Facility_identification"]["Local_Municipality"]
+              )
+            ) {
+              municipalHealthCareFacilities.push(facility);
+            }
+          }
         }
+        municipalHealthCareFacilities.concat(
+          this.searchByMunicipality(
+            name,
+            node?.L,
+            municipalHealthCareFacilities
+          )
+        );
+        municipalHealthCareFacilities.concat(
+          this.searchByMunicipality(
+            name,
+            node?.R,
+            municipalHealthCareFacilities
+          )
+        );
+        return municipalHealthCareFacilities.length
+          ? municipalHealthCareFacilities
+          : `No municipality with such name: ${name}`;
       }
-      districtHealthFacilities.concat(
-        this.searchByDistrict(name, node.L, districtHealthFacilities)
-      );
-      districtHealthFacilities.concat(
-        this.searchByDistrict(name, node.R, districtHealthFacilities)
-      );
-      return districtHealthFacilities.length
-        ? districtHealthFacilities
-        : `No district with such name: ${name}`;
     } catch (error) {
       console.error(error);
     }
   }
-  searchByMunicipality(name) {
+  /**
+   *
+   * @param {String} name
+   * @param {Object} node
+   * @param {Array} provinceSuggestions
+   * @returns Array of Objects or String.
+   */
+  searchByHealthCareFacility(
+    name,
+    node = this.#root,
+    healthCareFacilities = []
+  ) {
     try {
-      let node = arguments[1] || this.#root;
-      let municipalHealthCareFacilities = arguments[2] || [];
-      const regex = new RegExp(name, "i");
+      if (node) {
+        const regex = new RegExp(name, "i");
 
-      for (let districtName of node.data.district["district_names"]) {
-        let districtHealthFacilites =
-          node.data["health_facilities"]["facilities"][
-            districtName.replace(/ /g, "_")
-          ];
+        for (let districtName of node.data["districts"]["district_names"]) {
+          let districtHealthFacilites =
+            node.data["health_facilities"]["facilities"][
+              districtName.replace(/ /g, "_")
+            ];
 
-        for (let facility of districtHealthFacilites) {
-          if (
-            regex.test(
-              facility["Facility_identification"]["Local_Municipality"]
-            )
-          ) {
-            municipalHealthCareFacilities.push(facility);
+          for (let facility of districtHealthFacilites) {
+            if (
+              regex.test(facility["Facility_identification"]["Facility_name"])
+            ) {
+              healthCareFacilities.push(facility);
+            }
           }
         }
+        healthCareFacilities.concat(
+          this.searchByHealthCareFacility(name, node?.L, healthCareFacilities)
+        );
+        healthCareFacilities.concat(
+          this.searchByHealthCareFacility(name, node?.R, healthCareFacilities)
+        );
+        return healthCareFacilities.length
+          ? healthCareFacilities
+          : `No health care facility with such name: ${name}`;
       }
-      municipalHealthCareFacilities.concat(
-        this.searchByMunicipality(name, node.L, municipalHealthCareFacilities)
-      );
-      municipalHealthCareFacilities.concat(
-        this.searchByMunicipality(name, node.R, municipalHealthCareFacilities)
-      );
-      return municipalHealthCareFacilities.length
-        ? municipalHealthCareFacilities
-        : `No municipality with such name: ${name}`;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  searchByHealthCareFacility(name) {
-    try {
-      let node = arguments[1] || this.#root;
-      let healthCareFacilities = arguments[2] || [];
-      const regex = new RegExp(name, "i");
-
-      for (let districtName of node.data.district["district_names"]) {
-        let districtHealthFacilites =
-          node.data["health_facilities"]["facilities"][
-            districtName.replace(/ /g, "_")
-          ];
-
-        for (let facility of districtHealthFacilites) {
-          if (
-            regex.test(facility["Facility_identification"]["Facility_name"])
-          ) {
-            healthCareFacilities.push(facility);
-          }
-        }
-      }
-      healthCareFacilities.concat(
-        this.searchByHealthCareFacility(name, node.L, healthCareFacilities)
-      );
-      healthCareFacilities.concat(
-        this.searchByHealthCareFacility(name, node.R, healthCareFacilities)
-      );
-      return healthCareFacilities.length
-        ? healthCareFacilities
-        : `No health care facility with such name: ${name}`;
     } catch (error) {
       console.error(error);
     }
@@ -186,8 +239,8 @@ export class PrimaryHealthCareBST {
     if (!node) {
       return -1;
     }
-    let left = this.#minHeight(node.L),
-      right = this.#minHeight(node.R);
+    let left = this.#minHeight(node?.L),
+      right = this.#minHeight(node?.R);
     if (left < right) {
       return left + 1;
     } else {
@@ -198,8 +251,8 @@ export class PrimaryHealthCareBST {
     if (!node) {
       return -1;
     }
-    let left = this.#maxHeight(node.L),
-      right = this.#maxHeight(node.R);
+    let left = this.#maxHeight(node?.L),
+      right = this.#maxHeight(node?.R);
     if (left > right) {
       return left + 1;
     } else {
@@ -239,6 +292,7 @@ export class PrimaryHealthCareBST {
   inOrder(node = this.#root) {
     let results = [];
     _traverse(node);
+
     return results;
     /**
      *
@@ -268,15 +322,15 @@ export class SouthAfricaPoliceServiceBST {
   insert() {}
   #min() {
     let node = this.#root;
-    while (node.L) {
-      node = node.L;
+    while (node?.L) {
+      node = node?.L;
     }
     return node.data;
   }
   #max() {
     let node = this.#root;
-    while (node.R) {
-      node = node.R;
+    while (node?.R) {
+      node = node?.R;
     }
     return node.data;
   }

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import healthFacilitesContext from "../../contexts/clinics/context";
 export default function provinces() {
   const {
@@ -8,9 +8,13 @@ export default function provinces() {
     searchByMunicipality,
     searchByHealthFacility,
   } = useContext(healthFacilitesContext);
-console.log(hasProvince("Zulu"))
-console.log(searchByProvince('mpumalanga'))
-console.log(searchByDistrict('bojanala'))
+useEffect(() => {
+  //  console.log(hasProvince("pop"))
+  // console.log(searchByProvince("west"))
+  // console.log(searchByDistrict('zulu '))
+  // console.log(searchByMunicipality("taung"))
+  // console.log(searchByHealthFacility('kana'))
+},[])
 
   return (
     <>

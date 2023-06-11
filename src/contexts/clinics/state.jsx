@@ -9,8 +9,10 @@ export default function state({ children }) {
   const phcTree = new PrimaryHealthCareBST();
 
   for (let province of healthCareData) {
+    // console.log(province.province)
     phcTree.insert(province);
   }
+  // console.log("========")
 
   const initialState = new Map([["health", phcTree]]);
   const [state, dispatch] = useReducer(reducer, initialState);
