@@ -1,21 +1,20 @@
-// import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import PagesNavigations from "./components/navigation/PagesNavigations";
+import HomePage from "./components/pages/Index";
+import AboutPage from "./components/pages/About";
+import "./App.css";
 
-
-// import "./App.css";
 
 function App() {
   return (
-    <h1>Hello World.</h1>
-    // <BrowserRouter>
-    //   <Nav />
-    //   <Routes>
-    //     <Route path="/" element={<Home />} />
-    //     <Route path="about" element={<About />} />
-    //     <Route path="quiz" element={<QuizModel />} />
-    //     <Route path="*" element={<Navigate to="/" />} />
-    //   </Routes>
-    //   <Footer />
-    // </BrowserRouter>
+    <BrowserRouter>
+      <PagesNavigations />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="about" element={<AboutPage />} />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

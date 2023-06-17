@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-// import DMProvider from "./context/DriveMate/DMState";
+import HealthFacilitiesProvider from "./contexts/clinics/state";
 import App from "./App";
 
 // if ("serviceWorker" in navigator) {
@@ -18,8 +18,8 @@ import App from "./App";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    {/* <DMProvider> */}
+    <HealthFacilitiesProvider>
       <App />
-    {/* </DMProvider> */}
+    </HealthFacilitiesProvider>
   </React.StrictMode>
 );
