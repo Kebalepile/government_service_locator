@@ -1,7 +1,16 @@
 import { useContext } from "react";
-// import healthFacilitesContext from "../../contexts/clinics/context";
+import healthFacilitesContext from "../../contexts/clinics/context";
 export default function provinces() {
-//   const {  } = useContext(healthFacilitesContext);
+  const {
+    hasProvince,
+    searchByProvince,
+    searchByDistrict,
+    searchByMunicipality,
+    searchByHealthFacility,
+  } = useContext(healthFacilitesContext);
+console.log(hasProvince("Zulu"))
+console.log(searchByProvince('mpumalanga'))
+console.log(searchByDistrict('bojanala'))
 
   return (
     <>
