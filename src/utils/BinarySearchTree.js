@@ -7,7 +7,11 @@ class Node {
   }
 }
 
-export default class BST {
+/**
+ * @description A class for health facilites data binary search tree, for better, faster
+ * querying of the data.
+ */
+export class PrimaryHealthCareBST {
   #root = null;
   insert(data) {
     const node = this.#root;
@@ -61,41 +65,124 @@ export default class BST {
   searchByProvince(name) {
     try {
       let node = arguments[1] || this.#root;
-      let suggestions = arguments[2] || [];
+      let provinceSuggestions = arguments[2] || [];
       const regex = new RegExp(name, "i");
       if (regex.test(node.data.province)) {
-        suggestions.push(node.data);
+        provinceSuggestions.push(node.data);
       }
-      suggestions.concat(this.searchByProvince(name, node.L, suggestions));
-      suggestions.concat(this.searchByProvince(name, node.R, suggestions));
-      return suggestions.length
-        ? suggestions
+      provinceSuggestions.concat(
+        this.searchByProvince(name, node.L, provinceSuggestions)
+      );
+      provinceSuggestions.concat(
+        this.searchByProvince(name, node.R, provinceSuggestions)
+      );
+      return provinceSuggestions.length
+        ? provinceSuggestions
         : `No province with such name: ${name}`;
     } catch (error) {
       console.error(error);
     }
   }
-  searchByDistrict() {}
-  searchByMunicipality() {}
-  searchByTown() {}
-  searchByHealthCareFacility() {}
+  searchByDistrict(name) {
+    try {
+      let node = arguments[1] || this.#root;
+      let districtHealthFacilities = arguments[2] || [];
+      const regex = new RegExp(name, "i");
 
-  #min() {
-    let node = this.#root;
-    while (node.L) {
-      node = node.L;
+      for (let districtName of node.data.district["district_names"]) {
+        if (regex.test(districtName)) {
+          //   districtHealthFacilities.push(node.data);
+          districtHealthFacilities.concat(
+            node.data["health_facilities"]["facilities"][
+              districtName.replace(/ /g, "_")
+            ]
+          );
+        }
+      }
+      districtHealthFacilities.concat(
+        this.searchByDistrict(name, node.L, districtHealthFacilities)
+      );
+      districtHealthFacilities.concat(
+        this.searchByDistrict(name, node.R, districtHealthFacilities)
+      );
+      return districtHealthFacilities.length
+        ? districtHealthFacilities
+        : `No district with such name: ${name}`;
+    } catch (error) {
+      console.error(error);
     }
-    return node.data;
   }
-  #max() {
-    let node = this.#root;
-    while (node.R) {
-      node = node.R;
+  searchByMunicipality(name) {
+    try {
+      let node = arguments[1] || this.#root;
+      let municipalHealthCareFacilities = arguments[2] || [];
+      const regex = new RegExp(name, "i");
+
+      for (let districtName of node.data.district["district_names"]) {
+        let districtHealthFacilites =
+          node.data["health_facilities"]["facilities"][
+            districtName.replace(/ /g, "_")
+          ];
+
+        for (let facility of districtHealthFacilites) {
+          if (
+            regex.test(
+              facility["Facility_identification"]["Local_Municipality"]
+            )
+          ) {
+            municipalHealthCareFacilities.push(facility);
+          }
+        }
+      }
+      municipalHealthCareFacilities.concat(
+        this.searchByMunicipality(name, node.L, municipalHealthCareFacilities)
+      );
+      municipalHealthCareFacilities.concat(
+        this.searchByMunicipality(name, node.R, municipalHealthCareFacilities)
+      );
+      return municipalHealthCareFacilities.length
+        ? municipalHealthCareFacilities
+        : `No municipality with such name: ${name}`;
+    } catch (error) {
+      console.error(error);
     }
-    return node.data;
   }
-  #minHeight() {
-    let node = arguments[0] || this.#root;
+
+  searchByHealthCareFacility(name) {
+    try {
+      let node = arguments[1] || this.#root;
+      let healthCareFacilities = arguments[2] || [];
+      const regex = new RegExp(name, "i");
+
+      for (let districtName of node.data.district["district_names"]) {
+        let districtHealthFacilites =
+          node.data["health_facilities"]["facilities"][
+            districtName.replace(/ /g, "_")
+          ];
+
+        for (let facility of districtHealthFacilites) {
+          if (
+            regex.test(facility["Facility_identification"]["Facility_name"])
+          ) {
+            healthCareFacilities.push(facility);
+          }
+        }
+      }
+      healthCareFacilities.concat(
+        this.searchByHealthCareFacility(name, node.L, healthCareFacilities)
+      );
+      healthCareFacilities.concat(
+        this.searchByHealthCareFacility(name, node.R, healthCareFacilities)
+      );
+      return healthCareFacilities.length
+        ? healthCareFacilities
+        : `No health care facility with such name: ${name}`;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  #minHeight(node = this.#root) {
     if (!node) {
       return -1;
     }
@@ -107,8 +194,7 @@ export default class BST {
       return right + 1;
     }
   }
-  #maxHeight() {
-    let node = arguments[0] || this.#root;
+  #maxHeight(node = this.#root) {
     if (!node) {
       return -1;
     }
@@ -150,8 +236,7 @@ export default class BST {
   /**
    * @returns  array of nodes or empty array.
    */
-  inOrder() {
-    let node = arguments[0] || this.#root;
+  inOrder(node = this.#root) {
     let results = [];
     _traverse(node);
     return results;
@@ -175,5 +260,24 @@ export default class BST {
         return [];
       }
     }
+  }
+}
+
+export class SouthAfricaPoliceServiceBST {
+  #root = null;
+  insert() {}
+  #min() {
+    let node = this.#root;
+    while (node.L) {
+      node = node.L;
+    }
+    return node.data;
+  }
+  #max() {
+    let node = this.#root;
+    while (node.R) {
+      node = node.R;
+    }
+    return node.data;
   }
 }
