@@ -2,24 +2,24 @@ import { useReducer } from "react";
 import protectionServicesContext from "./context";
 import reducer from "./reducer";
 import { SouthAfricaPoliceServiceBST } from "../../utils/BinarySearchTree";
-import sapsContactData from "../../database/saps.json";
+import sapsContactsData from "../../database/saps.json";
 
 export default function state({ children }) {
   const binaryTree = new SouthAfricaPoliceServiceBST();
-  for (let data of sapsContactData) {
+  for (let data of sapsContactsData) {
     binaryTree.insert(data);
   }
-  const initialState = new map([["police", binaryTree]]);
-  const [state] = useReducer(initialState, reducer);
+  const initialState = new Map([["police", binaryTree]]);
+  const [state] = useReducer(reducer, initialState);
 
   const hasProvince = (name) => {
-    return state.get("health").hasProvince(name.trim());
+    return state.get("police").hasProvince(name.trim());
   };
   const searchByProvince = (name) => {
-    return state.get("health").searchByProvince(name.trim());
+    return state.get("police").searchByProvince(name.trim());
   };
   const searchByStation = (name) => {
-    return state.get("health").searchByStation(name.trim());
+    return state.get("police").searchByStation(name.trim());
   };
   return (
     <protectionServicesContext.Provider

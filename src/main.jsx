@@ -19,10 +19,10 @@ import App from "./App";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <HealthFacilitiesProvider>
+    {/* <HealthFacilitiesProvider> */}
       <ProtectionServicesProvider>
         <App />
       </ProtectionServicesProvider>
-    </HealthFacilitiesProvider>
+    {/* </HealthFacilitiesProvider> */}
   </React.StrictMode>
 );

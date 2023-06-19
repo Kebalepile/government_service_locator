@@ -7,11 +7,10 @@ export default function provinces() {
     searchByStation
   } = useContext(protectionServicesContext);
 useEffect(() => {
-   console.log(hasProvince("pop"))
-  // console.log(searchByProvince("west"))
-  // console.log(searchByDistrict('zulu '))
-  // console.log(searchByMunicipality("taung"))
-  // console.log(searchByHealthFacility('kana'))
+//    console.log(hasProvince("pop"))
+//   console.log(searchByProvince("zulu"))
+//   console.log(searchByStation('taung'))
+ 
 },[])
 
   return (
