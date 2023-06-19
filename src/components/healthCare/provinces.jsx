@@ -13,12 +13,12 @@ useEffect(() => {
   // console.log(searchByProvince("west"))
   // console.log(searchByDistrict('zulu '))
   // console.log(searchByMunicipality("taung"))
-  // console.log(searchByHealthFacility('kana'))
+  console.log(searchByHealthFacility('taung'))
 },[])
 
   return (
     <>
-      <h1>Provinces</h1>
+      <h1>Health Facilitees</h1>
     </>
   );
 }

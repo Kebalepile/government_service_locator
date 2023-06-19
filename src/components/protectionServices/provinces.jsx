@@ -9,13 +9,13 @@ export default function provinces() {
 useEffect(() => {
 //    console.log(hasProvince("pop"))
 //   console.log(searchByProvince("zulu"))
-//   console.log(searchByStation('taung'))
+  console.log(searchByStation('taung'))
  
 },[])
 
   return (
     <>
-      <h1>Provinces</h1>
+      <h1>SAPS</h1>
     </>
   );
 }
