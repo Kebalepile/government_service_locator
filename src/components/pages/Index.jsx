@@ -6,7 +6,7 @@ export default function Index() {
     <>
       <h1>Home page</h1>
       <HealthFacilitiesProvinces/>
-      <ProtectionProvinces />
+      {/* <ProtectionProvinces /> */}
     </>
   );
 }

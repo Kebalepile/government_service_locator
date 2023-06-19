@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Allows End-Users to easily find and locate government services in RSA.\r The app scrapes data from official government websites such as departments, agencies and public services, including contact information, operating hours, and services offered. Find and locate governement services in RSA.",
   "type": "module",
-   "scripts": {
+  "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"

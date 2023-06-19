@@ -6,14 +6,25 @@ import healthCareData from "../../database/healthFacilites.json";
 // import { PROVINCES } from "../types";
 
 export default function state({ children }) {
+  const initialState = new Map();
+  const [state] = useReducer(reducer, initialState);
+
   const binaryTree = new PrimaryHealthCareBST();
+  const provinceNames = [];
 
   for (let data of healthCareData) {
+    provinceNames.push(data.province);
+    state.set(data.province, data["districts"]["district_names"]);
     binaryTree.insert(data);
   }
 
-  const initialState = new Map([["health", binaryTree]]);
-  const [state, ] = useReducer(reducer, initialState);
+  state.set("provinces", provinceNames);
+  state.set("health", binaryTree);
+
+  const provinces = () => state.get("provinces");
+
+  const districts = (province) => province ? state.get(province): [];
+
   const hasProvince = (name) => {
     return state.get("health").hasProvince(name.trim());
   };
@@ -33,6 +44,8 @@ export default function state({ children }) {
   return (
     <healthFacilitesContext.Provider
       value={{
+        districts,
+        provinces,
         hasProvince,
         searchByProvince,
         searchByDistrict,
