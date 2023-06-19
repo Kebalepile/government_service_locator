@@ -6,16 +6,14 @@ import healthCareData from "../../database/healthFacilites.json";
 // import { PROVINCES } from "../types";
 
 export default function state({ children }) {
-  const phcTree = new PrimaryHealthCareBST();
+  const binaryTree = new PrimaryHealthCareBST();
 
-  for (let province of healthCareData) {
-    // console.log(province.province)
-    phcTree.insert(province);
+  for (let data of healthCareData) {
+    binaryTree.insert(data);
   }
-  // console.log("========")
 
-  const initialState = new Map([["health", phcTree]]);
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const initialState = new Map([["health", binaryTree]]);
+  const [state, ] = useReducer(reducer, initialState);
   const hasProvince = (name) => {
     return state.get("health").hasProvince(name.trim());
   };

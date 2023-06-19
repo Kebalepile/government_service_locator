@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import HealthFacilitiesProvider from "./contexts/clinics/state";
+import ProtectionServicesProvider from "./contexts/saps/state";
 import App from "./App";
 
 // if ("serviceWorker" in navigator) {
@@ -19,7 +20,9 @@ import App from "./App";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <HealthFacilitiesProvider>
-      <App />
+      <ProtectionServicesProvider>
+        <App />
+      </ProtectionServicesProvider>
     </HealthFacilitiesProvider>
   </React.StrictMode>
 );
