@@ -23,7 +23,7 @@ export default function state({ children }) {
 
   const provinces = () => state.get("provinces");
 
-  const districts = (province) => province ? state.get(province): [];
+  const districts = (province) => (province ? state.get(province) : []);
 
   const hasProvince = (name) => {
     return state.get("health").hasProvince(name.trim());
@@ -40,6 +40,30 @@ export default function state({ children }) {
   const searchByHealthFacility = (name) => {
     return state.get("health").searchByHealthCareFacility(name.trim());
   };
+  const totalProvinceFacilities = (name) => {};
+  const totalDistrictFacilities = (name) => {};
+  const totalMunicipalityFacilities = (name) => {};
+  const totalDistrictMunicipalities = (name) => {
+    const district = searchByDistrict(name);
+    const municipalities = [];
+    if (district.length) {
+      const uniqueNames = new Set();
+      for (let facility of district) {
+        uniqueNames.add(
+          facility["Facility_identification"]["Local_Municipality"]
+        );
+      }
+      municipalities.push(...uniqueNames);
+    }
+    return municipalities;
+  };
+  const totalMunicipalityHeathFacilites = (name) => {
+    const municipalityHealthFacilites = searchByMunicipality(name);
+    return municipalityHealthFacilites;
+  };
+  const totalMomConnectProvinceFacilites = (name) => {};
+  const totalMomConnectDistrictFacilites = (name) => {};
+  const totalMomConnectMunicipalityFacilites = (name) => {};
 
   return (
     <healthFacilitesContext.Provider
@@ -51,6 +75,8 @@ export default function state({ children }) {
         searchByDistrict,
         searchByMunicipality,
         searchByHealthFacility,
+        totalDistrictMunicipalities,
+        totalMunicipalityHeathFacilites,
       }}
     >
       {children}
