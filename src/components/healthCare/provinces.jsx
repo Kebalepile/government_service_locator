@@ -1,7 +1,12 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
+
+import { useNavigate } from "react-router-dom";
+
 import healthFacilitesContext from "../../contexts/clinics/context";
-import Districts from "./districts";
+
 export default function provinces() {
+  const navigate = useNavigate();
+
   const { provinces } = useContext(healthFacilitesContext);
 
   const provinceNames = provinces();
@@ -12,19 +17,14 @@ export default function provinces() {
     const province = e.target.textContent;
     setSelectedProvince(() => province);
   };
-  const renderDistricts = () => {
+  useEffect(() => {
     if (selectedProvince) {
-      return (
-        <>
-          <button onClick={(e) => setSelectedProvince(() => null)}>
-            close
-          </button>
-          <Districts province={selectedProvince} />
-        </>
-      );
+      navigate(`${selectedProvince}/districts`, {
+        state: { province: selectedProvince },
+      });
     }
-    return null;
-  };
+  }, [selectedProvince, navigate]);
+
   return (
     <>
       <h1>Health Facilitees</h1>
@@ -36,8 +36,6 @@ export default function provinces() {
             {name}
           </p>
         ))}
-
-      {renderDistricts()}
     </>
   );
 }

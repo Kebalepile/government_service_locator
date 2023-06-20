@@ -1,8 +1,16 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import healthFacilitesContext from "../../contexts/clinics/context";
 import Municipalities from "./municipalities";
 
-export default function provinceDistricts({ province }) {
+export default function provinceDistricts() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const province = location.state?.province;
+  
+  useEffect(() => {
+    if (province == undefined) navigate("/");
+  },[])
   const [selectedDistrict, setSelectedDistrict] = useState(null);
 
   const { districts } = useContext(healthFacilitesContext);
