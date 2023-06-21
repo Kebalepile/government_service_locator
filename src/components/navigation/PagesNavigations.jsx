@@ -1,21 +1,28 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import appLogo from "/assets/logo/gsl_logo.png";
 export default function Nav() {
+  const navigate = useNavigate();
+
   return (
     <>
       <nav>
         <ul>
-          <li>home</li>
+          <li onClick={(e) => navigate("/")}>home</li>
           <li>
             <details>
               <summary>service</summary>
               <ul id="services">
-                <li>primary health care</li>
-                <li>protection services</li>
+                <li onClick={(e) => navigate("health-care")}>
+                  primary health care
+                </li>
+                <li onClick={(e) => navigate("protection-services")}>
+                  protection services
+                </li>
               </ul>
             </details>
           </li>
-          <li>about</li>
+          <li onClick={(e) => navigate("about")}>about</li>
           <hr />
         </ul>
         <div id="logo-parent">
