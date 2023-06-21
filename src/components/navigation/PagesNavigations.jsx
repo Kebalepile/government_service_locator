@@ -1,6 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import appLogo from "/assets/logo/gsl_logo.png";
+import { HiHome } from "react-icons/hi";
+import { RiServiceFill } from "react-icons/ri";
+import { GiHealthNormal } from "react-icons/gi";
+import { GiPoliceOfficerHead } from "react-icons/gi";
+import { GrInfo } from "react-icons/gr";
 export default function Nav() {
   const navigate = useNavigate();
 
@@ -8,21 +13,27 @@ export default function Nav() {
     <>
       <nav>
         <ul>
-          <li onClick={(e) => navigate("/")}>home</li>
+          <li onClick={(e) => navigate("/")}>
+            <HiHome /> Home
+          </li>
           <li>
             <details>
-              <summary>service</summary>
+              <summary>
+                <RiServiceFill /> Services
+              </summary>
               <ul id="services">
                 <li onClick={(e) => navigate("health-care")}>
-                  primary health care
+                  <GiHealthNormal /> Health care
                 </li>
                 <li onClick={(e) => navigate("protection-services")}>
-                  protection services
+                  <GiPoliceOfficerHead /> Protection services
                 </li>
               </ul>
             </details>
           </li>
-          <li onClick={(e) => navigate("about")}>about</li>
+          <li onClick={(e) => navigate("about")}>
+            <GrInfo /> About
+          </li>
           <hr />
         </ul>
         <div id="logo-parent">
