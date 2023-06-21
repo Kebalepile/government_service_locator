@@ -19,44 +19,59 @@
   --C4: rgba(7, 92, 204, 0.979);
   --C5: #33373a;
   --C6: #242424;
- 
 }
-*{
-  margin:0;
-  padding:0;
+* {
+  margin: 0;
+  padding: 0;
 }
 
 body {
   margin: auto;
- 
 }
-
-.select{
-  /* height: 200px; */
-  max-height: 198px;
-  color: white;
-  width: fit-content;
-  min-width: 180px;
-  padding: 5px;
-  overflow-y: scroll;
+/* navigation pages component css below.*/
+ul {
+  list-style: none;
 }
-.select > p {
-  margin: 5px auto auto auto;
-  background: rgb(112, 109, 109);
-  border-radius: 3px;
-  padding: 2px;
-  text-align: center;
+nav > ul {
+  grid-column: 1/3;
+  grid-row: 1/3;
+}
+nav {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  padding: 30px;
+  height: 100px;
+}
+nav > *:not(hr) {
   cursor: pointer;
 }
+nav > ul > li:nth-child(2) {
+  padding-left: 20px;
+}
+nav summary:hover,
+#services li:hover {
+  text-decoration: underline;
+}
 
-/* #info-grid{
-  display:flex;
-  background-color:pink;
-
-  height: 500px;
-
-} */
-/* #municipality-health-facilities{
-  align-self: center;
-  justify-self: center;
-} */
+details > summary {
+  list-style: none;
+}
+details > ul {
+  padding-left: 20px;
+}
+nav > hr {
+  /* width: 80%; */
+  grid-column: 1/6;
+  grid-row: 5/5;
+}
+#logo {
+  /* background: red; */
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 1px solid green;
+  grid-column: 5/6;
+  grid-row: 1/6;
+}
+/* navigation pages component css  above.*/
