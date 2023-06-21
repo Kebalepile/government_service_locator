@@ -1,4 +1,5 @@
 import React from "react";
+import appLogo from "/assets/logo/gsl_logo.png";
 export default function Nav() {
   return (
     <>
@@ -17,10 +18,9 @@ export default function Nav() {
           <li>about</li>
           <hr />
         </ul>
-        <div id="logo">
-          logo
+        <div id="logo-parent">
+          <img src={appLogo} alt="web app logo." id="logo" />
         </div>
-       
       </nav>
     </>
   );

@@ -29,14 +29,9 @@ body {
   margin: auto;
 }
 /* navigation pages component css below.*/
-ul {
-  list-style: none;
-}
-nav > ul {
-  grid-column: 1/3;
-  grid-row: 1/3;
-}
+
 nav {
+  margin-top: 10px;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(5, 1fr);
@@ -53,7 +48,13 @@ nav summary:hover,
 #services li:hover {
   text-decoration: underline;
 }
-
+ul {
+  list-style: none;
+}
+nav > ul {
+  grid-column: 2/3;
+  grid-row: 1/3;
+}
 details > summary {
   list-style: none;
 }
@@ -61,17 +62,19 @@ details > ul {
   padding-left: 20px;
 }
 nav > hr {
-  /* width: 80%; */
   grid-column: 1/6;
   grid-row: 5/5;
 }
-#logo {
-  /* background: red; */
-  width: 200px;
-  height: 200px;
+#logo-parent {
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
-  border: 1px solid green;
-  grid-column: 5/6;
+  grid-column: 5/5;
   grid-row: 1/6;
 }
+#logo {
+  width: inherit;
+  height: inherit;
+}
+
 /* navigation pages component css  above.*/
