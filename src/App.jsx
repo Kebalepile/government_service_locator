@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import PagesNavigations from "./components/navigation/PagesNavigations";
+import Footer from "./components/navigation/Footer";
 import HomePage from "./components/pages/Index";
 import AboutPage from "./components/pages/About";
 import PrimaryHealthFacility from "./components/pages/PrimaryHealthFacilites";
@@ -19,6 +20,7 @@ function App() {
         <Route path="protection-services" element={<ProtectionServices />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }

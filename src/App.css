@@ -82,15 +82,30 @@ details > ul {
 /* navigation pages component css  above.*/
 
 /* home page component css below */
-#homepage {
+.page {
   margin: 70px auto auto auto;
   background: rgba(224, 224, 224, 0.39);
   width: 50dvw;
+
+  
 }
-#homepage {
+#homepage{
+  background: rgba(224, 224, 224, 0.39);
+  width: 50dvw;
   display: flex;
   flex-flow: column wrap;
   justify-content: center;
   align-items: center;
 }
 /* home page component css above */
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 50dvw;
+  height: 100px;
+padding-left:100px;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
