@@ -6,7 +6,7 @@ export default function FooterNavigation() {
         <h5>Contacts:</h5>
         <h6>
           Email:{" "}
-          <a href="mailto:kmotshoana@gmail.com?subject=Helo&body=How%20are%20you%3F">
+          <a href="mailto:kmotshoana@gmail.com">
             kmotshoana@gmail.com
           </a>
         </h6>
