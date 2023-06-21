@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import  React,{ useReducer } from "react";
 import healthFacilitesContext from "./context";
 import reducer from "./reducer";
 import { PrimaryHealthCareBST } from "../../utils/BinarySearchTree";

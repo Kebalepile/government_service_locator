@@ -1,3 +1,4 @@
+import React from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import PagesNavigations from "./components/navigation/PagesNavigations";
 import HomePage from "./components/pages/Index";
