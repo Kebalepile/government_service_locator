@@ -34,12 +34,14 @@ export default function Nav() {
           <li onClick={(e) => navigate("about")}>
             <GrInfo /> About
           </li>
-          <hr />
+        
         </ul>
         <div id="logo-parent">
           <img src={appLogo} alt="web app logo." id="logo" />
         </div>
+        
       </nav>
+        <hr />
     </>
   );
 }
