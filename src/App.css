@@ -86,11 +86,12 @@ details > ul {
 /* home page component css below */
 .page {
   margin: 70px auto auto auto;
-  width: 55dvw; 
+  width: 55dvw;
 }
-#aboutpage, #homepage{
+#aboutpage,
+#homepage {
   background: var(--C7);
-  padding:20px;
+  padding: 20px;
   border-radius: 3px;
 }
 #homepage > p {
@@ -101,13 +102,12 @@ details > ul {
 }
 /* home page component css above */
 footer {
-  position: absolute;
-  bottom: 0;
+  /* position: absolute;
+  bottom: 0; */
   width: 50dvw;
   height: 100px;
-padding-left:100px;
-  display:flex;
+  padding-left: 100px;
+  display: flex;
   justify-content: space-between;
   align-items: center;
 }
-
