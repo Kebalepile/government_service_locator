@@ -19,6 +19,8 @@
   --C4: rgba(7, 92, 204, 0.979);
   --C5: #33373a;
   --C6: #242424;
+  --C7: rgba(250, 246, 246, 0.39);
+  --C8: rgba(224, 224, 224, 0.39);
 }
 * {
   margin: 0;
@@ -84,13 +86,10 @@ details > ul {
 /* home page component css below */
 .page {
   margin: 70px auto auto auto;
-  /* background: rgba(224, 224, 224, 0.39); */
-  width: 55dvw;
-
-  
+  width: 55dvw; 
 }
-#homepage{
-  background: rgba(250, 246, 246, 0.39);
+#aboutpage, #homepage{
+  background: var(--C7);
   padding:20px;
   border-radius: 3px;
 }
