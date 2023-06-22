@@ -15,11 +15,12 @@ export default function PrimaryHealthFacility() {
   const [showDialog, setShowDialog] = useState(false);
 
   const handleOpenDialog = () => {
-    setShowDialog(() => true);
+    setShowDialog( true);
   };
 
   const handleCloseDialog = () => {
-    setShowDialog(() => false);
+    console.log("close dialog")
+    setShowDialog( false);
   };
   const loadMap = () => {
     console.log("map.");
@@ -112,9 +113,10 @@ export default function PrimaryHealthFacility() {
           </button>
         </section>
       </div>
-      <dialog open={showDialog} className="dialog-centered">
-        <form onSubmit={handleSubmit} id="searchby-form">
-          <h5>select a search by option below :</h5>
+      <dialog open={showDialog}  className="dialog-centered" >
+       <section id="dialog-content">
+       <form onSubmit={handleSubmit} id="searchby-form">
+          <h3>select a search by option below :</h3>
           <br />
           <input
             type="radio"
@@ -174,17 +176,21 @@ export default function PrimaryHealthFacility() {
                 setErrorMessage(() => null);
               }
               setChoice(null);
+            
             }}
           />
         </form>
-        {errorMessage && <p>{errorMessage}</p>}
+        {errorMessage && <p id="error-message">{errorMessage}</p>}
         {errorMessage &&
           (() =>
             setTimeout(() => {
               setErrorMessage(() => null);
               setChoice(null);
             }, 2000))()}
-        <button onClick={handleCloseDialog}>close</button>
+        <button onClick={handleCloseDialog} id="close-button">
+          Close
+        </button>
+       </section>
       </dialog>
     </>
   );

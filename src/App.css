@@ -17,6 +17,7 @@
   --C6: #242424;
   --C7: rgba(250, 246, 246, 0.39);
   --C8: rgba(224, 224, 224, 0.39);
+  --C8: rgb(255, 56, 56);
 }
 * {
   margin: 0;
@@ -56,18 +57,26 @@ ul > hr {
   background: rgba(214, 214, 214, 0.384);
 }
 hr {
-  width:55%;
-  margin:auto;
-  float:right;
-  border:none;
-  border-radius:5px;
-  background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+  width: 55%;
+  margin: auto;
+  float: right;
+  border: none;
+  border-radius: 5px;
+  background: linear-gradient(
+    to right,
+    red,
+    orange,
+    yellow,
+    green,
+    blue,
+    indigo,
+    violet
+  );
   height: 5px;
 }
 nav > ul {
   grid-column: 2/3;
   grid-row: 1/3;
-
 }
 details > summary {
   list-style: none;
@@ -133,29 +142,89 @@ details > ul {
   color: white;
   background: var(--C2);
 }
-#searchby-form > *{
+#close-button,
+#searchby-form input[type="submit"],
+#searchby-form input[type="reset"] {
+  color: white;
+  height: 30px;
+  width: 80px;
+  background: var(--C2);
+  border: none;
+  border-radius: 2px;
+  margin: 2px;
+}
+#close-button {
+  background: var(--C8);
+  margin-top: 10px;
+}
+#error-message {
+  background: goldenrod;
+  border-radius: 3px;
+  padding: 10px;
+  color: white;
+  margin-top: 10px;
+}
+#searchby-form {
+  background: rgb(255, 254, 254);
+  width: 25dvw;
+  padding: 40px;
+  border-radius: 4px;
+}
+#dialog-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+#dialog-content > button {
   cursor: pointer;
 }
-/* #searchby-form > input[type="radio"]{
-appearance: none;
-
-} */
-#searchby-form   input[type="radio"] {
-  display: none;
-  margin:5px;
+#searchby-form > * {
+  cursor: pointer;
 }
-#searchby-form   input[type="radio"] + label:before {
+
+#searchby-form input[type="submit"] {
+  background: rgb(14, 168, 14);
+}
+
+#searchby-form input[type="text"] {
+  margin: 8px 0 8px 0;
+  border: 1px solid rgb(23, 110, 240);
+  border-radius: 3px;
+  height: 30px;
+  text-align: center;
+}
+#searchby-form input[type="radio"] {
+  display: none;
+  margin: 5px;
+}
+#searchby-form input[type="radio"] + label:before {
   content: "\2718";
   display: inline-block;
   margin: 0 5px 0 5px;
-  color:orangered;
+  color: orangered;
 }
 
-#searchby-form   input[type="radio"]:checked + label:before {
+#searchby-form input[type="radio"]:checked + label:before {
   content: "\2714";
-  color:var(--C3);
-  margin:5px;
+  color: var(--C3);
+  margin: 5px;
 }
+.dialog-centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100dvw;
+  height: 100dvh;
+  border: none;
+  background: rgba(7, 7, 7, 0.89);
+}
+
 #aboutpage,
 #homepage {
   background: var(--C7);
@@ -167,18 +236,6 @@ appearance: none;
 }
 #homepage > h4 {
   text-align: center;
-}
-.dialog-centered {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 80dvw;
-  /* border:none; */
-  /* background:pink; */
-}
-.dialog-centered > button {
-  cursor: pointer;
 }
 
 /* pages component css above */
