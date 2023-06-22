@@ -48,6 +48,7 @@ export default function PrimaryHealthFacility() {
       }
     }
   };
+  const [searchInput, setSearchInput] = useState("");
   const [choice, setChoice] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const handleChange = (e) => {
@@ -58,11 +59,15 @@ export default function PrimaryHealthFacility() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(choice);
+
     if (!choice) {
       setErrorMessage("Please select one of the choices.");
     } else {
-      console.log(`Selected choice is: ${choice}.`);
+      console.log(`Selected choice is: ${choice}, input is: ${searchInput}`);
+      if (errorMessage) {
+        setErrorMessage(null);
+      }
+      setChoice(null);
     }
   };
 
@@ -93,13 +98,14 @@ export default function PrimaryHealthFacility() {
       </div>
       <dialog open={showDialog} className="dialog-centered">
         <form onSubmit={handleSubmit} id="searchby-form">
+          <h5>select a search by option below :</h5>
+          <br />
           <input
             type="radio"
             id={choices[0]}
             name="choice"
             value={choices[0]}
             onChange={handleChange}
-            // required
           />
           <label htmlFor={choices[0]}>{choices[0]}</label>
           <br />
@@ -130,10 +136,19 @@ export default function PrimaryHealthFacility() {
           />
           <label htmlFor={choices[3]}>{choices[3]}</label>
           <br />
+          {choice && (
+            <input
+              type="text"
+              placeholder="search"
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+            />
+          )}
+          <br />
           <input type="submit" value="Submit" />
           <input
             type="reset"
-            value="Cancel"
+            value="Clear"
             onClick={(e) => {
               if (errorMessage) {
                 setErrorMessage(null);
@@ -147,7 +162,6 @@ export default function PrimaryHealthFacility() {
           (() => {
             setTimeout(() => {
               setErrorMessage(null);
-              console.log("done");
             }, 2000);
           })()}
         <button onClick={handleCloseDialog}>close</button>
