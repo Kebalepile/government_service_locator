@@ -142,6 +142,7 @@ appearance: none;
 } */
 #searchby-form   input[type="radio"] {
   display: none;
+  margin:5px;
 }
 #searchby-form   input[type="radio"] + label:before {
   content: "\2718";
@@ -153,7 +154,7 @@ appearance: none;
 #searchby-form   input[type="radio"]:checked + label:before {
   content: "\2714";
   color:var(--C3);
-  margin: 0 5px 0 5px;
+  margin:5px;
 }
 #aboutpage,
 #homepage {

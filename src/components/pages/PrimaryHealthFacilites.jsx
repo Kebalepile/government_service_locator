@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { BsArrowDown } from "react-icons/bs";
 import { BiMapPin } from "react-icons/bi";
 import healthFacilitesContext from "../../contexts/clinics/context";
-import sanitizeInput from "../../utils/sanitizeInput";
+import xss from "xss";
 
 export default function PrimaryHealthFacility() {
   const {
@@ -15,33 +15,45 @@ export default function PrimaryHealthFacility() {
   const [showDialog, setShowDialog] = useState(false);
 
   const handleOpenDialog = () => {
-    setShowDialog(true);
+    setShowDialog(() => true);
   };
 
   const handleCloseDialog = () => {
-    setShowDialog(false);
+    setShowDialog(() => false);
   };
   const loadMap = () => {
     console.log("map.");
   };
   const choices = ["province", "district", "municipality", "facility"];
   const searchBy = (type, input) => {
+    const searchError = (error) => {
+      if (!Array.isArray(error)) setErrorMessage(error);
+    };
     if (input) {
-      const cleanedType = sanitizeInput(type);
-      // cleanedInput = sanitizeInput(input);
+      const cleanedType = xss(type);
+      const cleanedInput = xss(input);
 
+      let results;
       switch (cleanedType.toLowerCase().trim()) {
         case choices[0]:
-          searchByProvince(input);
+          results = searchByProvince(cleanedInput);
+          searchError(results);
+          console.log(results);
           return;
         case choices[1]:
-          searchByDistrict(input);
+          results = searchByDistrict(cleanedInput);
+          searchError(results);
+          console.log(results);
           return;
         case choices[2]:
-          searchByMunicipality(input);
+          results = searchByMunicipality(cleanedInput);
+          searchError(results);
+          console.log(results);
           return;
         case choices[3]:
-          searchByHealthFacility(input);
+          results = searchByHealthFacility(cleanedInput);
+          searchError(results);
+          console.log(results);
           return;
         default:
           return;
@@ -53,21 +65,25 @@ export default function PrimaryHealthFacility() {
   const [errorMessage, setErrorMessage] = useState(null);
   const handleChange = (e) => {
     if (errorMessage) {
-      setErrorMessage(null);
+      setErrorMessage(() => null);
     }
-    setChoice(e.target.value);
+    setChoice(() => e.target.value);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (!choice) {
-      setErrorMessage("Please select one of the choices.");
+      setErrorMessage(() => "Please select one of the choices.");
     } else {
-      console.log(`Selected choice is: ${choice}, input is: ${searchInput}`);
-      if (errorMessage) {
-        setErrorMessage(null);
+      if (searchInput) {
+        searchBy(choice, searchInput);
+        setChoice(() => null);
+        setSearchInput("");
       }
-      setChoice(null);
+      if (errorMessage) {
+        setErrorMessage(() => null);
+      }
+      setChoice(() => null);
     }
   };
 
@@ -105,6 +121,7 @@ export default function PrimaryHealthFacility() {
             id={choices[0]}
             name="choice"
             value={choices[0]}
+            checked={choice === choices[0]}
             onChange={handleChange}
           />
           <label htmlFor={choices[0]}>{choices[0]}</label>
@@ -114,6 +131,7 @@ export default function PrimaryHealthFacility() {
             id={choices[1]}
             name="choice"
             value={choices[1]}
+            checked={choice === choices[1]}
             onChange={handleChange}
           />
           <label htmlFor={choices[1]}>{choices[1]}</label>
@@ -123,6 +141,7 @@ export default function PrimaryHealthFacility() {
             id={choices[2]}
             name="choice"
             value={choices[2]}
+            checked={choice === choices[2]}
             onChange={handleChange}
           />
           <label htmlFor={choices[2]}>{choices[2]}</label>
@@ -132,6 +151,7 @@ export default function PrimaryHealthFacility() {
             id={choices[3]}
             name="choice"
             value={choices[3]}
+            checked={choice === choices[3]}
             onChange={handleChange}
           />
           <label htmlFor={choices[3]}>{choices[3]}</label>
@@ -141,7 +161,7 @@ export default function PrimaryHealthFacility() {
               type="text"
               placeholder="search"
               value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
+              onChange={(e) => setSearchInput(() => e.target.value)}
             />
           )}
           <br />
@@ -151,7 +171,7 @@ export default function PrimaryHealthFacility() {
             value="Clear"
             onClick={(e) => {
               if (errorMessage) {
-                setErrorMessage(null);
+                setErrorMessage(() => null);
               }
               setChoice(null);
             }}
@@ -159,11 +179,11 @@ export default function PrimaryHealthFacility() {
         </form>
         {errorMessage && <p>{errorMessage}</p>}
         {errorMessage &&
-          (() => {
+          (() =>
             setTimeout(() => {
-              setErrorMessage(null);
-            }, 2000);
-          })()}
+              setErrorMessage(() => null);
+              setChoice(null);
+            }, 2000))()}
         <button onClick={handleCloseDialog}>close</button>
       </dialog>
     </>

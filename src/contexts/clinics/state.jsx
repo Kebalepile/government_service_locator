@@ -3,7 +3,7 @@ import healthFacilitesContext from "./context";
 import reducer from "./reducer";
 import { PrimaryHealthCareBST } from "../../utils/BinarySearchTree";
 import healthCareData from "../../database/healthFacilites.json";
-import sanitizeInput from "../../utils/sanitizeInput";
+import xss from 'xss';
 
 export default function state({ children }) {
   const initialState = new Map();
@@ -26,30 +26,30 @@ export default function state({ children }) {
   const districts = (province) => (province ? state.get(province) : []);
 
   const hasProvince = (name) => {
-    name = sanitizeInput(name);
+    name = xss(name);
     return state.get("health").hasProvince(name.trim());
   };
   const searchByProvince = (name) => {
-    name = sanitizeInput(name);
+    name = xss(name);
     return state.get("health").searchByProvince(name.trim());
   };
   const searchByDistrict = (name) => {
-    name = sanitizeInput(name);
+    name = xss(name);
     return state.get("health").searchByDistrict(name.trim());
   };
   const searchByMunicipality = (name) => {
-    name = sanitizeInput(name);
+    name = xss(name);
     return state.get("health").searchByMunicipality(name.trim());
   };
   const searchByHealthFacility = (name) => {
-    name = sanitizeInput(name);
+    name = xss(name);
     return state.get("health").searchByHealthCareFacility(name.trim());
   };
   const totalProvinceFacilities = (name) => {};
   const totalDistrictFacilities = (name) => {};
   const totalMunicipalityFacilities = (name) => {};
   const totalDistrictMunicipalities = (name) => {
-    name = sanitizeInput(name);
+    name = xss(name);
     const district = searchByDistrict(name);
     const municipalities = [];
     if (district.length) {
