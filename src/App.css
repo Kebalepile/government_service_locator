@@ -84,18 +84,21 @@ details > ul {
 /* home page component css below */
 .page {
   margin: 70px auto auto auto;
-  background: rgba(224, 224, 224, 0.39);
-  width: 50dvw;
+  /* background: rgba(224, 224, 224, 0.39); */
+  width: 55dvw;
 
   
 }
 #homepage{
-  background: rgba(224, 224, 224, 0.39);
-  width: 50dvw;
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: center;
-  align-items: center;
+  background: rgba(250, 246, 246, 0.39);
+  padding:20px;
+  border-radius: 3px;
+}
+#homepage > p {
+  text-align: justify;
+}
+#homepage > h4 {
+  text-align: center;
 }
 /* home page component css above */
 footer {
