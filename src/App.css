@@ -135,6 +135,17 @@ details > ul {
 #homepage > h4 {
   text-align: center;
 }
+.dialog-centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80dvw;
+  /* border:none; */
+}
+.dialog-centered > button {
+  cursor: pointer;
+}
 /* pages component css above */
 footer {
   width: 50dvw;
