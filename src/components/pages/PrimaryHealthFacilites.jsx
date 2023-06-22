@@ -1,7 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { BsArrowDown } from "react-icons/bs";
 import { BiMapPin } from "react-icons/bi";
+import healthFacilitesContext from "../../contexts/clinics/context";
+import sanitizeInput from "../../utils/sanitizeInput";
+
 export default function PrimaryHealthFacility() {
+  const {
+    searchByProvince,
+    searchByDistrict,
+    searchByMunicipality,
+    searchByHealthFacility,
+  } = useContext(healthFacilitesContext);
+
   const [showDialog, setShowDialog] = useState(false);
 
   const handleOpenDialog = () => {
@@ -14,7 +24,47 @@ export default function PrimaryHealthFacility() {
   const loadMap = () => {
     console.log("map.");
   };
-  const searchBy = () => {};
+  const choices = ["province", "district", "municipality", "facility"];
+  const searchBy = (type, input) => {
+    if (input) {
+      const cleanedType = sanitizeInput(type);
+      // cleanedInput = sanitizeInput(input);
+
+      switch (cleanedType.toLowerCase().trim()) {
+        case choices[0]:
+          searchByProvince(input);
+          return;
+        case choices[1]:
+          searchByDistrict(input);
+          return;
+        case choices[2]:
+          searchByMunicipality(input);
+          return;
+        case choices[3]:
+          searchByHealthFacility(input);
+          return;
+        default:
+          return;
+      }
+    }
+  };
+  const [choice, setChoice] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const handleChange = (e) => {
+    if (errorMessage) {
+      setErrorMessage(null);
+    }
+    setChoice(e.target.value);
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // console.log(choice);
+    if (!choice) {
+      setErrorMessage("Please select one of the choices.");
+    } else {
+      console.log(`Selected choice is: ${choice}.`);
+    }
+  };
 
   return (
     <>
@@ -42,7 +92,64 @@ export default function PrimaryHealthFacility() {
         </section>
       </div>
       <dialog open={showDialog} className="dialog-centered">
-        <p>Hello from dialog.</p>
+        <form onSubmit={handleSubmit} id="searchby-form">
+          <input
+            type="radio"
+            id={choices[0]}
+            name="choice"
+            value={choices[0]}
+            onChange={handleChange}
+            // required
+          />
+          <label htmlFor={choices[0]}>{choices[0]}</label>
+          <br />
+          <input
+            type="radio"
+            id={choices[1]}
+            name="choice"
+            value={choices[1]}
+            onChange={handleChange}
+          />
+          <label htmlFor={choices[1]}>{choices[1]}</label>
+          <br />
+          <input
+            type="radio"
+            id={choices[2]}
+            name="choice"
+            value={choices[2]}
+            onChange={handleChange}
+          />
+          <label htmlFor={choices[2]}>{choices[2]}</label>
+          <br />
+          <input
+            type="radio"
+            id={choices[3]}
+            name="choice"
+            value={choices[3]}
+            onChange={handleChange}
+          />
+          <label htmlFor={choices[3]}>{choices[3]}</label>
+          <br />
+          <input type="submit" value="Submit" />
+          <input
+            type="reset"
+            value="Cancel"
+            onClick={(e) => {
+              if (errorMessage) {
+                setErrorMessage(null);
+              }
+              setChoice(null);
+            }}
+          />
+        </form>
+        {errorMessage && <p>{errorMessage}</p>}
+        {errorMessage &&
+          (() => {
+            setTimeout(() => {
+              setErrorMessage(null);
+              console.log("done");
+            }, 2000);
+          })()}
         <button onClick={handleCloseDialog}>close</button>
       </dialog>
     </>
