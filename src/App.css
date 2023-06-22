@@ -2,11 +2,7 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
-  /* color: rgba(255, 255, 255, 0.87); */
-  /* background-color: #242424; */
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -83,11 +79,50 @@ details > ul {
 
 /* navigation pages component css  above.*/
 
-/* home page component css below */
+/* pages component css below */
 .page {
   margin: 70px auto auto auto;
   width: 55dvw;
 }
+#healthcarepage {
+  background: var(--C7);
+  padding: 25px 1px 25px 15px;
+  border-radius: 10px;
+}
+#healthcarepage > ol {
+  padding-left: 50px;
+  list-style: circle;
+}
+#arrow {
+  width: inherit;
+  height: 20px;
+  animation: moveArrow 2s ease infinite;
+}
+@keyframes moveArrow {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(25px);
+  }
+}
+#choice {
+  margin-top: 30px;
+  width: inherit;
+  display: flex;
+  justify-content: center;
+}
+#choice > button {
+  height: 30px;
+  width: 100px;
+  margin: 4px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background: var(--C2);
+}
+
 #aboutpage,
 #homepage {
   background: var(--C7);
@@ -100,10 +135,8 @@ details > ul {
 #homepage > h4 {
   text-align: center;
 }
-/* home page component css above */
+/* pages component css above */
 footer {
-  /* position: absolute;
-  bottom: 0; */
   width: 50dvw;
   height: 100px;
   padding-left: 100px;
