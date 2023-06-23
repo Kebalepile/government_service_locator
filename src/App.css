@@ -19,6 +19,33 @@
   --C8: rgba(224, 224, 224, 0.39);
   --C8: rgb(255, 56, 56);
 }
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--C5);
+  border-radius:2px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--C6);
+}
+
+/* color */
+html {
+  scrollbar-color: var(--C6) #f1f1f1;
+  scrollbar-width: 10px;
+
+}
 * {
   margin: 0;
   padding: 0;
