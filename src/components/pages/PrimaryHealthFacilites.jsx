@@ -55,6 +55,7 @@ export default function PrimaryHealthFacility() {
               title: `Health Facility Suggestions for ${cleanedInput} District.`,
               list: results,
             });
+            handleCloseDialog();
           }
           return;
         case choices[1]:
