@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import React, { createContext } from "react";
 
 const healthFacilitesContext = createContext();
 export default healthFacilitesContext

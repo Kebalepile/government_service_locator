@@ -1,10 +1,12 @@
 import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { BsArrowDown } from "react-icons/bs";
 import { BiMapPin } from "react-icons/bi";
 import healthFacilitesContext from "../../contexts/clinics/context";
 import xss from "xss";
 
 export default function PrimaryHealthFacility() {
+  const navigate = useNavigate();
   const {
     searchByProvince,
     searchByDistrict,
@@ -15,46 +17,63 @@ export default function PrimaryHealthFacility() {
   const [showDialog, setShowDialog] = useState(false);
 
   const handleOpenDialog = () => {
-    setShowDialog( true);
+    setShowDialog(true);
   };
 
   const handleCloseDialog = () => {
-    console.log("close dialog")
-    setShowDialog( false);
+    console.log("close dialog");
+    setShowDialog(false);
   };
   const loadMap = () => {
     console.log("map.");
   };
+
   const choices = ["province", "district", "municipality", "facility"];
+
   const searchBy = (type, input) => {
     const searchError = (error) => {
-      if (!Array.isArray(error)) setErrorMessage(error);
+      if (!Array.isArray(error)) {
+        setErrorMessage(error);
+        return false;
+      }
+      return true;
     };
+
     if (input) {
       const cleanedType = xss(type);
       const cleanedInput = xss(input);
 
-      let results;
+      let results, noError;
       switch (cleanedType.toLowerCase().trim()) {
         case choices[0]:
           results = searchByProvince(cleanedInput);
-          searchError(results);
-          console.log(results);
+          noError = searchError(results);
+          if (noError) {
+            console.log(results);
+          }
           return;
         case choices[1]:
           results = searchByDistrict(cleanedInput);
-          searchError(results);
-          console.log(results);
+          noError = searchError(results);
+          if (noError) {
+            console.log(results);
+          }
           return;
         case choices[2]:
           results = searchByMunicipality(cleanedInput);
-          searchError(results);
-          console.log(results);
+          noError = searchError(results);
+          if (noError) {
+            console.log(results);
+          }
           return;
         case choices[3]:
           results = searchByHealthFacility(cleanedInput);
-          searchError(results);
-          console.log(results);
+          noError = searchError(results);
+          if (noError) {
+           
+            navigate("/health-care/facility-info", { state: results });
+            return
+          }
           return;
         default:
           return;
@@ -113,84 +132,83 @@ export default function PrimaryHealthFacility() {
           </button>
         </section>
       </div>
-      <dialog open={showDialog}  className="dialog-centered" >
-       <section id="dialog-content">
-       <form onSubmit={handleSubmit} id="searchby-form">
-          <h3>select a search by option below :</h3>
-          <br />
-          <input
-            type="radio"
-            id={choices[0]}
-            name="choice"
-            value={choices[0]}
-            checked={choice === choices[0]}
-            onChange={handleChange}
-          />
-          <label htmlFor={choices[0]}>{choices[0]}</label>
-          <br />
-          <input
-            type="radio"
-            id={choices[1]}
-            name="choice"
-            value={choices[1]}
-            checked={choice === choices[1]}
-            onChange={handleChange}
-          />
-          <label htmlFor={choices[1]}>{choices[1]}</label>
-          <br />
-          <input
-            type="radio"
-            id={choices[2]}
-            name="choice"
-            value={choices[2]}
-            checked={choice === choices[2]}
-            onChange={handleChange}
-          />
-          <label htmlFor={choices[2]}>{choices[2]}</label>
-          <br />
-          <input
-            type="radio"
-            id={choices[3]}
-            name="choice"
-            value={choices[3]}
-            checked={choice === choices[3]}
-            onChange={handleChange}
-          />
-          <label htmlFor={choices[3]}>{choices[3]}</label>
-          <br />
-          {choice && (
+      <dialog open={showDialog} className="dialog-centered">
+        <section id="dialog-content">
+          <form onSubmit={handleSubmit} id="searchby-form">
+            <h3>select a search by option below :</h3>
+            <br />
             <input
-              type="text"
-              placeholder="search"
-              value={searchInput}
-              onChange={(e) => setSearchInput(() => e.target.value)}
+              type="radio"
+              id={choices[0]}
+              name="choice"
+              value={choices[0]}
+              checked={choice === choices[0]}
+              onChange={handleChange}
             />
-          )}
-          <br />
-          <input type="submit" value="Submit" />
-          <input
-            type="reset"
-            value="Clear"
-            onClick={(e) => {
-              if (errorMessage) {
+            <label htmlFor={choices[0]}>{choices[0]}</label>
+            <br />
+            <input
+              type="radio"
+              id={choices[1]}
+              name="choice"
+              value={choices[1]}
+              checked={choice === choices[1]}
+              onChange={handleChange}
+            />
+            <label htmlFor={choices[1]}>{choices[1]}</label>
+            <br />
+            <input
+              type="radio"
+              id={choices[2]}
+              name="choice"
+              value={choices[2]}
+              checked={choice === choices[2]}
+              onChange={handleChange}
+            />
+            <label htmlFor={choices[2]}>{choices[2]}</label>
+            <br />
+            <input
+              type="radio"
+              id={choices[3]}
+              name="choice"
+              value={choices[3]}
+              checked={choice === choices[3]}
+              onChange={handleChange}
+            />
+            <label htmlFor={choices[3]}>{choices[3]}</label>
+            <br />
+            {choice && (
+              <input
+                type="text"
+                placeholder="search"
+                value={searchInput}
+                onChange={(e) => setSearchInput(() => e.target.value)}
+              />
+            )}
+            <br />
+            <input type="submit" value="Submit" />
+            <input
+              type="reset"
+              value="Clear"
+              onClick={(e) => {
+                if (errorMessage) {
+                  setErrorMessage(() => null);
+                }
+                setChoice(null);
+              }}
+            />
+          </form>
+          {errorMessage && <p id="error-message">{errorMessage}</p>}
+          {errorMessage &&
+            (() =>
+              setTimeout(() => {
                 setErrorMessage(() => null);
-              }
-              setChoice(null);
-            
-            }}
-          />
-        </form>
-        {errorMessage && <p id="error-message">{errorMessage}</p>}
-        {errorMessage &&
-          (() =>
-            setTimeout(() => {
-              setErrorMessage(() => null);
-              setChoice(null);
-            }, 2000))()}
-        <button onClick={handleCloseDialog} id="close-button">
-          Close
-        </button>
-       </section>
+                setChoice(null);
+              }, 2000))()}
+          <button onClick={handleCloseDialog} id="close-button">
+            Close
+          </button>
+        </section>
       </dialog>
     </>
   );
