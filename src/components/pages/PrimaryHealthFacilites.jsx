@@ -26,9 +26,18 @@ export default function PrimaryHealthFacility() {
   const loadMap = () => {
     console.log("map.");
   };
+  const [showSuggestionsDialog, setShowSuggestionsDialog] = useState(false);
+
+  const handleOpenSuggestionsDialog = () => {
+    setShowSuggestionsDialog(true);
+  };
+
+  const handleCloseSuggestionsDialog = () => {
+    setShowSuggestionsDialog(false);
+  };
 
   const [suggestions, setSuggestions] = useState({ title: null, list: [] });
-  const choices = [ "district", "municipality", "facility"];
+  const choices = ["district", "municipality", "facility"];
 
   const searchBy = (type, input) => {
     const searchError = (error) => {
@@ -45,7 +54,6 @@ export default function PrimaryHealthFacility() {
 
       let results, noError;
       switch (cleanedType.toLowerCase().trim()) {
-       
         case choices[0]:
           results = searchByDistrict(cleanedInput);
           noError = searchError(results);
@@ -55,6 +63,7 @@ export default function PrimaryHealthFacility() {
               list: results,
             });
             handleCloseSearchDialog();
+            handleOpenSuggestionsDialog();
           }
           return;
         case choices[1]:
@@ -66,18 +75,19 @@ export default function PrimaryHealthFacility() {
               list: results,
             });
             handleCloseSearchDialog();
+            handleOpenSuggestionsDialog();
           }
           return;
         case choices[2]:
           results = searchByHealthFacility(cleanedInput);
           noError = searchError(results);
           if (noError) {
-        
             setSuggestions({
               title: `Health Facility Suggestions for facility named: ${cleanedInput}`,
               list: results,
             });
             handleCloseSearchDialog();
+            handleOpenSuggestionsDialog();
 
             return;
           }
@@ -120,7 +130,6 @@ export default function PrimaryHealthFacility() {
         <h4>Health Care:</h4>
         <p>Search for facility by:</p>
         <ol>
-         
           <li>District</li>
           <li>Municipality</li>
           <li>Facility Name</li>
@@ -141,10 +150,10 @@ export default function PrimaryHealthFacility() {
         </section>
       </div>
       <dialog open={showSearchDialog} className="dialog-centered">
-        <section id="dialog-content">
+        <section className="dialog-content">
           <form onSubmit={handleSubmit} id="searchby-form">
             <h3>select a search by option below :</h3>
-           
+
             <br />
             <input
               type="radio"
@@ -205,36 +214,42 @@ export default function PrimaryHealthFacility() {
                 setErrorMessage(() => null);
                 setChoice(null);
               }, 2000))()}
-          <button onClick={handleCloseSearchDialog} id="close-button">
+          <button onClick={handleCloseSearchDialog} className="close-button">
             Close
           </button>
         </section>
       </dialog>
-      <div id="suggestions">
-        {suggestions.title && (
-          <>
-            <h4>{suggestions.title}</h4>
-            <hr />
-          </>
-        )}
+      <dialog open={showSuggestionsDialog} className="dialog-centered">
+        <div id="suggestions" className="dialog-content">
+          <button
+            onClick={handleCloseSuggestionsDialog}
+            className="close-button"
+          >Close</button>
+          {suggestions.title && (
+            <>
+              <h4>{suggestions.title}</h4>
+              <hr />
+            </>
+          )}
 
-        {suggestions.list.length > 0 &&
-          suggestions.list.map((facilityInfo, index) => {
-            return (
-              <p
-                key={index}
-                onClick={(e) => {
-                  navigate("/health-care/facility-info", {
-                    state: [facilityInfo],
-                  });
-                }}
-              >
-                {" "}
-                {facilityInfo["Facility_identification"]["Facility_name"]}
-              </p>
-            );
-          })}
-      </div>
+          {suggestions.list.length > 0 &&
+            suggestions.list.map((facilityInfo, index) => {
+              return (
+                <p
+                  key={index}
+                  onClick={(e) => {
+                    navigate("/health-care/facility-info", {
+                      state: [facilityInfo],
+                    });
+                  }}
+                >
+                  {" "}
+                  {facilityInfo["Facility_identification"]["Facility_name"]}
+                </p>
+              );
+            })}
+        </div>
+      </dialog>
     </>
   );
 }
