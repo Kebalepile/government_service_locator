@@ -14,15 +14,14 @@ export default function PrimaryHealthFacility() {
     searchByHealthFacility,
   } = useContext(healthFacilitesContext);
 
-  const [showDialog, setShowDialog] = useState(false);
+  const [showSearchDialog, setShowSearchDialog] = useState(false);
 
-  const handleOpenDialog = () => {
-    setShowDialog(true);
+  const handleOpenSearchDialog = () => {
+    setShowSearchDialog(true);
   };
 
-  const handleCloseDialog = () => {
-    console.log("close dialog");
-    setShowDialog(false);
+  const handleCloseSearchDialog = () => {
+    setShowSearchDialog(false);
   };
   const loadMap = () => {
     console.log("map.");
@@ -55,7 +54,7 @@ export default function PrimaryHealthFacility() {
               title: `Health Facility Suggestions for ${cleanedInput} District.`,
               list: results,
             });
-            handleCloseDialog();
+            handleCloseSearchDialog();
           }
           return;
         case choices[1]:
@@ -66,18 +65,19 @@ export default function PrimaryHealthFacility() {
               title: `Health Facility Suggestions for ${cleanedInput} Municipality.`,
               list: results,
             });
-            handleCloseDialog();
+            handleCloseSearchDialog();
           }
           return;
         case choices[2]:
           results = searchByHealthFacility(cleanedInput);
           noError = searchError(results);
           if (noError) {
+        
             setSuggestions({
               title: `Health Facility Suggestions for facility named: ${cleanedInput}`,
               list: results,
             });
-            handleCloseDialog();
+            handleCloseSearchDialog();
 
             return;
           }
@@ -133,14 +133,14 @@ export default function PrimaryHealthFacility() {
         <BsArrowDown id="arrow" />
         <br />
         <section id="choice">
-          <button onClick={handleOpenDialog}>search</button>
+          <button onClick={handleOpenSearchDialog}>search</button>
           <button onClick={loadMap}>
             <BiMapPin />
             load map
           </button>
         </section>
       </div>
-      <dialog open={showDialog} className="dialog-centered">
+      <dialog open={showSearchDialog} className="dialog-centered">
         <section id="dialog-content">
           <form onSubmit={handleSubmit} id="searchby-form">
             <h3>select a search by option below :</h3>
@@ -180,6 +180,7 @@ export default function PrimaryHealthFacility() {
               <input
                 type="text"
                 placeholder="search"
+                autoFocus
                 value={searchInput}
                 onChange={(e) => setSearchInput(() => e.target.value)}
               />
@@ -204,7 +205,7 @@ export default function PrimaryHealthFacility() {
                 setErrorMessage(() => null);
                 setChoice(null);
               }, 2000))()}
-          <button onClick={handleCloseDialog} id="close-button">
+          <button onClick={handleCloseSearchDialog} id="close-button">
             Close
           </button>
         </section>
