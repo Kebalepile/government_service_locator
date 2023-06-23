@@ -40,15 +40,12 @@
   background: var(--C6);
 }
 
-/* color */
-html {
-  scrollbar-color: var(--C6) #f1f1f1;
-  scrollbar-width: 10px;
 
-}
 * {
   margin: 0;
   padding: 0;
+  scrollbar-color: var(--C6) #f1f1f1;
+  scrollbar-width: thin;
 }
 
 body {
