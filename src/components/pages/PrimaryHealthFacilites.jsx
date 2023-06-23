@@ -52,7 +52,7 @@ export default function PrimaryHealthFacility() {
           noError = searchError(results);
           if (noError) {
             setSuggestions({
-              title: "Health Facility Suggestions:",
+              title: `Health Facility Suggestions for ${cleanedInput} District.`,
               list: results,
             });
           }
@@ -62,7 +62,7 @@ export default function PrimaryHealthFacility() {
           noError = searchError(results);
           if (noError) {
             setSuggestions({
-              title: "Health Facility Suggestions:",
+              title: `Health Facility Suggestions for ${cleanedInput} Municipality.`,
               list: results,
             });
             handleCloseDialog();
@@ -73,7 +73,7 @@ export default function PrimaryHealthFacility() {
           noError = searchError(results);
           if (noError) {
             setSuggestions({
-              title: "Health Facility Suggestions:",
+              title: `Health Facility Suggestions for facility named: ${cleanedInput}`,
               list: results,
             });
             handleCloseDialog();
