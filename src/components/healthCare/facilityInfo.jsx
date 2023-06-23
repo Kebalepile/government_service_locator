@@ -6,9 +6,9 @@ export default function FacilityInfo() {
     <>
       <h1>facility info</h1>
       {state.map((facility, index) => (
-        <p key={index}>
-          {facility["Facility_identification"]["Facility_name"]}
-        </p>
+        <code key={index}>
+          {JSON.stringify(facility,null, 4)}
+        </code>
       ))}
     </>
   );

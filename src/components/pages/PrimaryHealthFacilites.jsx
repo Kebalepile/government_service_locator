@@ -28,6 +28,7 @@ export default function PrimaryHealthFacility() {
     console.log("map.");
   };
 
+  const [suggestions, setSuggestions] = useState([]);
   const choices = ["province", "district", "municipality", "facility"];
 
   const searchBy = (type, input) => {
@@ -70,9 +71,10 @@ export default function PrimaryHealthFacility() {
           results = searchByHealthFacility(cleanedInput);
           noError = searchError(results);
           if (noError) {
-           
-            navigate("/health-care/facility-info", { state: results });
-            return
+            setSuggestions(results);
+            handleCloseDialog();
+
+            return;
           }
           return;
         default:
@@ -210,6 +212,24 @@ export default function PrimaryHealthFacility() {
           </button>
         </section>
       </dialog>
+      <div id="suggestions">
+        {suggestions.length > 0 &&
+          suggestions.map((facilityInfo, index) => {
+            return (
+              <p
+                key={index}
+                onClick={(e) => {
+                  navigate("/health-care/facility-info", {
+                    state: [facilityInfo],
+                  });
+                }}
+              >
+                {" "}
+                {facilityInfo["Facility_identification"]["Facility_name"]}
+              </p>
+            );
+          })}
+      </div>
     </>
   );
 }
