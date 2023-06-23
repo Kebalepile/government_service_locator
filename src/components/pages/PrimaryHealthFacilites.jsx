@@ -28,8 +28,8 @@ export default function PrimaryHealthFacility() {
     console.log("map.");
   };
 
-  const [suggestions, setSuggestions] = useState([]);
-  const choices = ["province", "district", "municipality", "facility"];
+  const [suggestions, setSuggestions] = useState({ title: null, list: [] });
+  const choices = [ "district", "municipality", "facility"];
 
   const searchBy = (type, input) => {
     const searchError = (error) => {
@@ -46,32 +46,36 @@ export default function PrimaryHealthFacility() {
 
       let results, noError;
       switch (cleanedType.toLowerCase().trim()) {
+       
         case choices[0]:
-          results = searchByProvince(cleanedInput);
-          noError = searchError(results);
-          if (noError) {
-            console.log(results);
-          }
-          return;
-        case choices[1]:
           results = searchByDistrict(cleanedInput);
           noError = searchError(results);
           if (noError) {
-            console.log(results);
+            setSuggestions({
+              title: "Health Facility Suggestions:",
+              list: results,
+            });
           }
           return;
-        case choices[2]:
+        case choices[1]:
           results = searchByMunicipality(cleanedInput);
           noError = searchError(results);
           if (noError) {
-            console.log(results);
+            setSuggestions({
+              title: "Health Facility Suggestions:",
+              list: results,
+            });
+            handleCloseDialog();
           }
           return;
-        case choices[3]:
+        case choices[2]:
           results = searchByHealthFacility(cleanedInput);
           noError = searchError(results);
           if (noError) {
-            setSuggestions(results);
+            setSuggestions({
+              title: "Health Facility Suggestions:",
+              list: results,
+            });
             handleCloseDialog();
 
             return;
@@ -115,9 +119,10 @@ export default function PrimaryHealthFacility() {
         <h4>Health Care:</h4>
         <p>Search for facility by:</p>
         <ol>
-          <li>Province</li>
+         
           <li>District</li>
           <li>Municipality</li>
+          <li>Facility Name</li>
         </ol>
         <p>
           <strong>or</strong>
@@ -138,6 +143,7 @@ export default function PrimaryHealthFacility() {
         <section id="dialog-content">
           <form onSubmit={handleSubmit} id="searchby-form">
             <h3>select a search by option below :</h3>
+           
             <br />
             <input
               type="radio"
@@ -168,16 +174,6 @@ export default function PrimaryHealthFacility() {
               onChange={handleChange}
             />
             <label htmlFor={choices[2]}>{choices[2]}</label>
-            <br />
-            <input
-              type="radio"
-              id={choices[3]}
-              name="choice"
-              value={choices[3]}
-              checked={choice === choices[3]}
-              onChange={handleChange}
-            />
-            <label htmlFor={choices[3]}>{choices[3]}</label>
             <br />
             {choice && (
               <input
@@ -213,8 +209,15 @@ export default function PrimaryHealthFacility() {
         </section>
       </dialog>
       <div id="suggestions">
-        {suggestions.length > 0 &&
-          suggestions.map((facilityInfo, index) => {
+        {suggestions.title && (
+          <>
+            <h4>{suggestions.title}</h4>
+            <hr />
+          </>
+        )}
+
+        {suggestions.list.length > 0 &&
+          suggestions.list.map((facilityInfo, index) => {
             return (
               <p
                 key={index}
