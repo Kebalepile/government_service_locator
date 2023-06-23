@@ -220,34 +220,40 @@ export default function PrimaryHealthFacility() {
         </section>
       </dialog>
       <dialog open={showSuggestionsDialog} className="dialog-centered">
-        <div id="suggestions" className="dialog-content">
+        <div className="dialog-content">
           <button
             onClick={handleCloseSuggestionsDialog}
             className="close-button"
-          >Close</button>
+          >
+            Close
+          </button>
+          <br />
           {suggestions.title && (
             <>
               <h4>{suggestions.title}</h4>
+              <br />
               <hr />
             </>
           )}
-
-          {suggestions.list.length > 0 &&
-            suggestions.list.map((facilityInfo, index) => {
-              return (
-                <p
-                  key={index}
-                  onClick={(e) => {
-                    navigate("/health-care/facility-info", {
-                      state: [facilityInfo],
-                    });
-                  }}
-                >
-                  {" "}
-                  {facilityInfo["Facility_identification"]["Facility_name"]}
-                </p>
-              );
-            })}
+          <br />
+          <section id="suggestions">
+            {suggestions.list.length > 0 &&
+              suggestions.list.map((facilityInfo, index) => {
+                return (
+                  <p
+                    key={index}
+                    onClick={(e) => {
+                      navigate("/health-care/facility-info", {
+                        state: [facilityInfo],
+                      });
+                    }}
+                  >
+                    {" "}
+                    {facilityInfo["Facility_identification"]["Facility_name"]}
+                  </p>
+                );
+              })}
+          </section>
         </div>
       </dialog>
     </>
