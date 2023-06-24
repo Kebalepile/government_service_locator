@@ -32,14 +32,13 @@
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: var(--C5);
-  border-radius:2px;
+  border-radius: 2px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: var(--C6);
 }
-
 
 * {
   margin: 0;
@@ -188,31 +187,32 @@ details > ul {
   color: white;
   margin-top: 10px;
 }
-#suggestions, #searchby-form {
+#suggestions,
+#searchby-form {
   background: rgb(255, 254, 254);
   width: 25dvw;
-  min-width:250px;
+  min-width: 250px;
   padding: 40px;
   border-radius: 4px;
 }
-#suggestions{
+#suggestions {
   max-height: 300px;
   overflow-y: scroll;
-  padding:15px 10px 15px 10px;
+  padding: 15px 10px 15px 10px;
 }
-#suggestions > p{
+#suggestions > p {
   cursor: pointer;
-  background:var(--C7);
-margin:6px;
-padding:5px;
+  background: var(--C7);
+  margin: 6px;
+  padding: 5px;
 }
-#suggestions > p:hover{
-  background:var(--C5);
-  color:whitesmoke;
-  border-radius:3px;
+#suggestions > p:hover {
+  background: var(--C5);
+  color: whitesmoke;
+  border-radius: 3px;
 }
 .dialog-content > h4 {
-  color:white;
+  color: white;
 }
 .dialog-content {
   position: absolute;
@@ -242,7 +242,7 @@ padding:5px;
   height: 30px;
   text-align: center;
 }
-#searchby-form input[type="text"]:focus{
+#searchby-form input[type="text"]:focus {
   border: 1px solid rgb(23, 110, 240);
 }
 
@@ -294,4 +294,40 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+#facility {
+  width: 100dvw;
+  display: flex;
+  justify-content: center;
+}
+
+#facility-info > div {
+  width: 100%;
+  padding: 20px;
+}
+#facility-info {
+  width: 500px;
+  background: var(--C7);
+  margin: 20px;
+  max-height: 300px;
+  overflow-y: auto;
+  cursor: pointer;
+  border-radius: 3px;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+#facility-info > div > p > code {
+  font-size: 15px;
+}
+#facility-info > div > p {
+  margin: 5px;
+  transition: all 0.5s ease;
+}
+#facility-info > div > p:hover {
+  background-color: rgb(37, 36, 36);
+  color: white;
+  padding: 3px;
+  border-radius: 2px;
+  margin: 10px;
 }
