@@ -304,6 +304,7 @@ footer {
 #facility-info > div {
   width: 100%;
   padding: 20px;
+  border-bottom: 5px solid white;
 }
 #facility-info {
   width: 500px;
@@ -330,4 +331,10 @@ footer {
   padding: 3px;
   border-radius: 2px;
   margin: 10px;
+}
+#name {
+  margin: 0;
+  padding: 0;
+  height: 50px;
+  border-bottom: 5px solid white;
 }

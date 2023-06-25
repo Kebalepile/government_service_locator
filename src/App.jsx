@@ -7,7 +7,7 @@ import AboutPage from "./components/pages/About";
 import PrimaryHealthFacility from "./components/pages/PrimaryHealthFacilites";
 import FacilityInfo from "./components/healthCare/facilityInfo";
 import ProtectionServices from "./components/pages/ProtectionServices";
-
+import StationInfo from "./components/protectionServices/stationInfo";
 import "./App.css";
 
 function App() {
@@ -15,11 +15,15 @@ function App() {
     <BrowserRouter>
       <PagesNavigations />
       <Routes>
-      <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/health-care" element={<PrimaryHealthFacility />} />
         <Route path="/health-care/facility-info" element={<FacilityInfo />} />
         <Route path="/protection-services" element={<ProtectionServices />} />
+        <Route
+          path="/protection-services/satation-info"
+          element={<StationInfo />}
+        />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
       <Footer />

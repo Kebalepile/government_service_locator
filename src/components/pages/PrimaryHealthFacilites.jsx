@@ -7,12 +7,8 @@ import xss from "xss";
 
 export default function PrimaryHealthFacility() {
   const navigate = useNavigate();
-  const {
-    searchByProvince,
-    searchByDistrict,
-    searchByMunicipality,
-    searchByHealthFacility,
-  } = useContext(healthFacilitesContext);
+  const { searchByDistrict, searchByMunicipality, searchByHealthFacility } =
+    useContext(healthFacilitesContext);
 
   const [showSearchDialog, setShowSearchDialog] = useState(false);
 
