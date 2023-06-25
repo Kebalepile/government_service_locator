@@ -278,10 +278,9 @@ details > ul {
   background: var(--C7);
   padding: 20px;
   border-radius: 3px;
-}
-#homepage > p {
   text-align: justify;
 }
+
 #homepage > h4 {
   text-align: center;
 }
