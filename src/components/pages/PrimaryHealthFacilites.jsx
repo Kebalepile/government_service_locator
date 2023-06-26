@@ -139,7 +139,7 @@ export default function PrimaryHealthFacility() {
         <br />
         <section id="choice">
           <button onClick={handleOpenSearchDialog}>search</button>
-          <button onClick={loadMap}>
+          <button disabled onClick={loadMap}>
             <BiMapPin />
             load map
           </button>

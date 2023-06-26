@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import appLogo from "/assets/logo/gsl_logo.png";
 import { HiHome } from "react-icons/hi";
 import { RiServiceFill } from "react-icons/ri";
@@ -8,6 +8,7 @@ import { GiPoliceOfficerHead } from "react-icons/gi";
 import { GrInfo } from "react-icons/gr";
 export default function Nav() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <>
@@ -21,10 +22,12 @@ export default function Nav() {
               <summary>
                 <RiServiceFill /> Services
               </summary>
+             
               <ul id="services">
                 <li onClick={(e) => navigate("health-care")}>
-                  <GiHealthNormal /> Health care
+                 <span> <GiHealthNormal /> Health care</span>
                 </li>
+              
                 <li onClick={(e) => navigate("protection-services")}>
                   <GiPoliceOfficerHead /> Protection services
                 </li>
@@ -32,16 +35,22 @@ export default function Nav() {
             </details>
           </li>
           <li onClick={(e) => navigate("about")}>
-            <GrInfo /> About
+           <span> <GrInfo  /> About</span>
           </li>
-        
         </ul>
-        <div id="logo-parent">
-          <img src={appLogo} alt="web app logo." id="logo" />
+        <div
+          id="logo-parent"
+          onClick={(e) => {
+            const currentURL = location.pathname;
+            if (currentURL != "/") {
+              navigate("/");
+            }
+          }}
+        >
+          <img src={appLogo} loading="lazy" alt="web app logo." id="logo" />
         </div>
-        
       </nav>
-        <hr />
+      <hr id="navbar-hr" />
     </>
   );
 }

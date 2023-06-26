@@ -2,7 +2,7 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color-scheme: light dark;
+  /* color-scheme: light dark; */
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -66,8 +66,8 @@ nav > *:not(hr) {
 nav > ul > li:nth-child(2) {
   padding-left: 20px;
 }
-nav summary:hover,
-#services li:hover {
+nav summary >span:hover,
+#services li > span:hover {
   text-decoration: underline;
   background-color: var(--C7);
 }
@@ -119,6 +119,8 @@ details > ul {
   width: inherit;
   height: inherit;
 }
+
+
 
 /* navigation pages component css  above.*/
 
@@ -337,3 +339,49 @@ footer {
   height: 50px;
   border-bottom: 5px solid white;
 }
+@media screen and (max-width:425px){
+  #logo-parent{
+    width:100px;
+    height:100px;
+    position:fixed;
+    top:5%;
+    right:5%;
+  
+  }
+  #navbar-hr{
+    width:40%;
+  }
+  #facility, #sapspage, #homepage, #aboutpage{
+    margin-top:100px;
+  }
+  #homepage, #aboutpage {
+    width:80dvw;
+  }
+  
+  details{
+    width:200px;
+  }
+  #services > li {
+    margin-top:15px;
+  
+  }
+  nav{
+    width:10%;
+  }
+  nav > ul > li {
+    margin-top:15px;
+  }
+  footer {
+    width: 100%;
+    margin:20px auto auto auto;
+    padding:10px;
+    flex-flow:column-reverse;
+    justify-content: center;
+    align-items: center;
+  }
+  footer *{
+    margin:5px;
+  }
+}
+
+  
