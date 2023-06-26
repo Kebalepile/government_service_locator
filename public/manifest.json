@@ -1,10 +1,10 @@
 {
-    "name": "government service locator",
+    "name": "service locator",
     "short_name": "GSL",
     "start_url": ".",
     "display": "standalone",
     "description": "Allows End-Users to easily find and locate government services in RSA.\r The app scrapes data from official government websites such as departments, agencies and public services, including contact information, operating hours, and services offered. Find and locate governement services in RSA.",
-    "theme_color": "#f34506",
+    "theme_color": "#faf6f6",
     "background_color": "#242424",
     "icons": [
       {
