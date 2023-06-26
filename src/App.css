@@ -289,12 +289,20 @@ details > ul {
 
 /* pages component css above */
 footer {
-  width: 50dvw;
-  height: 100px;
-  padding-left: 100px;
+ 
   display: flex;
-  justify-content: space-between;
+  background-image: url('/assets/footer/wave.svg');
+  background-repeat: no-repeat;
+  /* background-position: center center; */
+  background-size:cover;
+  width: 95dvw;
+  padding:10px;
+  flex-flow:column-reverse;
+  justify-content: center;
   align-items: center;
+}
+footer *{
+  margin:5px;
 }
 #facility {
   width: 100dvw;
@@ -372,7 +380,7 @@ footer {
     margin-top:15px;
   }
   footer {
-    width: 100%;
+    width: 90dvw;
     margin:20px auto auto auto;
     padding:10px;
     flex-flow:column-reverse;
