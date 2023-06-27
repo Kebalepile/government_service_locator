@@ -6,8 +6,10 @@ import courts from "../../database/courts.json";
 import xss from "xss";
 
 export default function state({ children }) {
+   let uuid = 0;
   const binaryTree = new LowerCourtsBTS();
   for (let court of courts) {
+   court.uuid = uuid++;
     binaryTree.insert(court);
   }
   const initialState = new Map([["lowerCourts", binaryTree]]);

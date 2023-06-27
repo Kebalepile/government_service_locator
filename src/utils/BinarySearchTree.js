@@ -536,14 +536,15 @@ export class LowerCourtsBTS {
     return;
   }
   #traverseInsert(node, data) {
-    if (data["Province"] < node.data["Province"]) {
+    console.log(data["uuid"])
+    if (data["uuid"] < node.data["uuid"]) {
       if (!node?.L) {
         node.L = new Node(data);
         node.L.P = node;
         return;
       }
       return this.#traverseInsert(node?.L, data);
-    } else if (data["Province"] > node.data["Province"]) {
+    } else if (data["uuid"] > node.data["uuid"]) {
       if (!node?.R) {
         node.R = new Node(data);
         node.R.P = node;
@@ -551,7 +552,7 @@ export class LowerCourtsBTS {
       }
       return this.#traverseInsert(node?.R, data);
     } else {
-      return `${data["Province"]}, already in Binary Search Tree.`;
+      return `${data["uuid"]}, already in Binary Search Tree.`;
     }
   }
   /**

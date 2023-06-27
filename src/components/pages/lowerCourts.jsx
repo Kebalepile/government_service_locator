@@ -1,5 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { BsArrowDown } from "react-icons/bs";
+import { BiMapPin } from "react-icons/bi";
 import lowerCouertsContext from "../../contexts/courts/context";
 import xss from "xss";
 
@@ -63,10 +65,11 @@ export default function lowerCourts() {
           //     return acc;
           //   }, []);
 
+          console.log(results);
           noError = searchError(results);
           if (noError) {
             setSuggestions({
-              title: `No Lower Court(s) Suggestions for ${cleanedInput} Province.`,
+              title: `Lower Court(s) Suggestions for ${cleanedInput} Province.`,
               list: results,
             });
             handleCloseSearchDialog();
@@ -76,10 +79,11 @@ export default function lowerCourts() {
         case choices[1]:
           results = searchByMagDistrict(cleanedInput);
 
+          console.log(results);
           noError = searchError(results);
           if (noError) {
             setSuggestions({
-              title: `No Lower Court(s) Suggestions for ${cleanedInput} Magistrate District.`,
+              title: `Lower Court(s) Suggestions for ${cleanedInput} Magistrate District.`,
               list: results,
             });
             handleCloseSearchDialog();
@@ -89,23 +93,25 @@ export default function lowerCourts() {
         case choices[2]:
           results = searchByCourtType(cleanedInput);
 
+          console.log(results);
           noError = searchError(results);
           if (noError) {
             setSuggestions({
-              title: `No Lower Court(s) Suggestions for ${cleanedInput} Court Type.`,
+              title: `Lower Court(s) Suggestions for ${cleanedInput} Court Type.`,
               list: results,
             });
             handleCloseSearchDialog();
             handleOpenSuggestionsDialog();
           }
           return;
-        case choices[2]:
+        case choices[3]:
           results = searchByOffice(cleanedInput);
 
+          console.log(results);
           noError = searchError(results);
           if (noError) {
             setSuggestions({
-              title: `No Lower Court(s) Suggestions for ${cleanedInput} Court office.`,
+              title: `Lower Court(s) Suggestions for ${cleanedInput} Court office.`,
               list: results,
             });
             handleCloseSearchDialog();
@@ -283,7 +289,7 @@ export default function lowerCourts() {
                     }}
                   >
                     {" "}
-                    {facilityInfo["name"]}
+                    {facilityInfo["MagDistrict"]}
                   </p>
                 );
               })}
