@@ -521,7 +521,7 @@ export class SouthAfricaPoliceServiceBST {
   }
 }
 
-export class LowerCourts {
+export class LowerCourtsBTS {
   #root = null;
   insert(data) {
     const node = this.#root;

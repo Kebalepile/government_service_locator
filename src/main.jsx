@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import HealthFacilitiesProvider from "./contexts/clinics/state";
 import ProtectionServicesProvider from "./contexts/saps/state";
+import LowerCourtsProvider from "./contexts/courts/state";
 import App from "./App";
 
 if ("serviceWorker" in navigator) {
@@ -11,9 +12,7 @@ if ("serviceWorker" in navigator) {
       .then((registration) => {
         console.log("service worker registered as: ", registration.scope);
       })
-      .catch((error) =>
-        console.error("service worker registration: ", error)
-      );
+      .catch((error) => console.error("service worker registration: ", error));
   });
 }
 
@@ -21,7 +20,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <HealthFacilitiesProvider>
       <ProtectionServicesProvider>
-        <App />
+        <LowerCourtsProvider>
+          <App />
+        </LowerCourtsProvider>
       </ProtectionServicesProvider>
     </HealthFacilitiesProvider>
   </React.StrictMode>
