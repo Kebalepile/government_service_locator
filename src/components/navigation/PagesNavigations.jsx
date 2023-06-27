@@ -22,20 +22,27 @@ export default function Nav() {
               <summary>
                 <RiServiceFill /> Services
               </summary>
-             
+
               <ul id="services">
                 <li onClick={(e) => navigate("health-care")}>
-                 <span> <GiHealthNormal /> Health care</span>
+                  <span>
+                    {" "}
+                    <GiHealthNormal /> Health care
+                  </span>
                 </li>
-              
+
                 <li onClick={(e) => navigate("protection-services")}>
                   <GiPoliceOfficerHead /> Protection services
                 </li>
+                <li onClick={(e) => navigate("courts")}>courts</li>
               </ul>
             </details>
           </li>
           <li onClick={(e) => navigate("about")}>
-           <span> <GrInfo  /> About</span>
+            <span>
+              {" "}
+              <GrInfo /> About
+            </span>
           </li>
         </ul>
         <div

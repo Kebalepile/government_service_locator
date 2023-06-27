@@ -8,6 +8,8 @@ import PrimaryHealthFacility from "./components/pages/PrimaryHealthFacilites";
 import FacilityInfo from "./components/healthCare/facilityInfo";
 import ProtectionServices from "./components/pages/ProtectionServices";
 import StationInfo from "./components/protectionServices/stationInfo";
+import LowerCourts from "./components/pages/lowerCourts";
+import CourtInfo from "./components/courts/courtInfo";
 import "./App.css";
 
 function App() {
@@ -24,6 +26,8 @@ function App() {
           path="/protection-services/satation-info"
           element={<StationInfo />}
         />
+        <Route path="/courts" element={<LowerCourts />} />
+        <Route path="courts/court-info" element={<CourtInfo />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
       <Footer />
