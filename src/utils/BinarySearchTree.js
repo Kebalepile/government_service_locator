@@ -520,3 +520,252 @@ export class SouthAfricaPoliceServiceBST {
     }
   }
 }
+
+export class LowerCourts {
+  #root = null;
+  insert(data) {
+    const node = this.#root;
+    if (!node) {
+      this.#root = new Node(data);
+      return;
+    }
+    this.#traverseInsert(node, data);
+    if (!this.#isBalanced()) {
+      this.#balance();
+    }
+    return;
+  }
+  #traverseInsert(node, data) {
+    if (data["Province"] < node.data["Province"]) {
+      if (!node?.L) {
+        node.L = new Node(data);
+        node.L.P = node;
+        return;
+      }
+      return this.#traverseInsert(node?.L, data);
+    } else if (data["Province"] > node.data["Province"]) {
+      if (!node?.R) {
+        node.R = new Node(data);
+        node.R.P = node;
+        return;
+      }
+      return this.#traverseInsert(node?.R, data);
+    } else {
+      return `${data["Province"]}, already in Binary Search Tree.`;
+    }
+  }
+  /**
+   *
+   * @param {string} provinceName
+   * @returns Boolean
+   */
+  hasProvince(provinceName) {
+    let node = this.#root;
+    if (provinceName) {
+      const regex = new RegExp(provinceName, "i");
+
+      while (!regex.test(node.data["Province"])) {
+        let province = node.data["Province"].toLowerCase();
+        provinceName = provinceName.toLowerCase();
+
+        if (provinceName < province) {
+          node = node?.L;
+        } else if (provinceName > province) {
+          node = node?.R;
+        }
+        if (!node) {
+          return false;
+        }
+      }
+      return true;
+    } else {
+      return `province name is null, enter province name parameter.`;
+    }
+  }
+  /**
+   *
+   * @param {String} name
+   * @param {Object} node
+   * @param {Array} provinceSuggestions
+   * @returns Array of Objects or String.
+   */
+  searchByProvince(name, node = this.#root, provinceSuggestions = []) {
+    try {
+      if (node) {
+        const regex = new RegExp(name, "i");
+        if (regex.test(node.data["Province"])) {
+          provinceSuggestions.push(node.data);
+        }
+        provinceSuggestions.concat(
+          this.searchByProvince(name, node.L, provinceSuggestions)
+        );
+        provinceSuggestions.concat(
+          this.searchByProvince(name, node.R, provinceSuggestions)
+        );
+        return provinceSuggestions.length
+          ? provinceSuggestions
+          : `No province with such name: ${name}`;
+      }
+    } catch (error) {
+      console.error(error);
+      return;
+    }
+  }
+  /**
+   *
+   * @param {String} name
+   * @param {Object} node
+   * @param {Array} magDistirctSuggestions
+   * @returns Array of Objects or String.
+   */
+  searchByMagDistrict(name, node = this.#root, magDistirctSuggestions = []) {
+    try {
+      if (node) {
+        const regex = new RegExp(name, "i");
+
+        if (regex.test(node.data["MagDistrict"])) {
+          magDistirctSuggestions.push(node.data);
+        }
+
+        magDistirctSuggestions.concat(
+          this.searchByMagDistrict(name, node?.L, magDistirctSuggestions)
+        );
+        magDistirctSuggestions.concat(
+          this.searchByMagDistrict(name, node?.R, magDistirctSuggestions)
+        );
+        return magDistirctSuggestions.length
+          ? magDistirctSuggestions
+          : `No magistate district with such name: ${name}`;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  searchByCourtType(name, node = this.#root, courtTypeSuggestions = []) {
+    try {
+      if (node) {
+        const regex = new RegExp(name, "i");
+
+        if (regex.test(node.data["CourtType"])) {
+          courtTypeSuggestions.push(node.data);
+        }
+
+        courtTypeSuggestions.concat(
+          this.searchByCourtType(name, node?.L, courtTypeSuggestions)
+        );
+        courtTypeSuggestions.concat(
+          this.searchByCourtType(name, node?.R, courtTypeSuggestions)
+        );
+        return courtTypeSuggestions.length
+          ? courtTypeSuggestions
+          : `No court type with such name: ${name}`;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  searchByOffice(name, node = this.#root, officeSuggestions = []) {
+    try {
+      if (node) {
+        const regex = new RegExp(name, "i");
+
+        if (regex.test(node.data["Office"])) {
+          officeSuggestions.push(node.data);
+        }
+
+        officeSuggestions.concat(
+          this.searchByOffice(name, node?.L, officeSuggestions)
+        );
+        officeSuggestions.concat(
+          this.searchByOffice(name, node?.R, officeSuggestions)
+        );
+        return officeSuggestions.length
+          ? officeSuggestions
+          : `No office with such name: ${name}`;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  #minHeight(node = this.#root) {
+    if (!node) {
+      return -1;
+    }
+    let left = this.#minHeight(node?.L),
+      right = this.#minHeight(node?.R);
+    if (left < right) {
+      return left + 1;
+    } else {
+      return right + 1;
+    }
+  }
+  #maxHeight(node = this.#root) {
+    if (!node) {
+      return -1;
+    }
+    let left = this.#maxHeight(node?.L),
+      right = this.#maxHeight(node?.R);
+    if (left > right) {
+      return left + 1;
+    } else {
+      return right + 1;
+    }
+  }
+  #isBalanced() {
+    return this.#minHeight() >= this.#maxHeight() - 1;
+  }
+  #balance() {
+    const nodes = this.inOrder();
+
+    this.#root = _rebuildBinarySearchTree(nodes, 0, nodes.length - 1);
+    /**
+     *
+     * @param {Array} arr
+     * @param {Number} start
+     * @param {Number} end
+     * @description Rebuild the BST by recursively dividing the array in
+     *  half and inserting the middle element into the BST
+     * @returns node, to be usewd as new #root.
+     */
+    function _rebuildBinarySearchTree(arr, start, end) {
+      if (start > end) {
+        return null;
+      }
+      const mid = Math.floor((start + end) / 2),
+        node = new Node(arr[mid]);
+      node.L = _rebuildBinarySearchTree(arr, start, mid - 1);
+      node.R = _rebuildBinarySearchTree(arr, mid + 1, end);
+      return node;
+    }
+  }
+  /**
+   * @returns  array of nodes or empty array.
+   */
+  inOrder(node = this.#root) {
+    let results = [];
+    _traverse(node);
+
+    return results;
+    /**
+     *
+     * @param {Object} node
+     * @description is a traversal method, traverses the BST from
+     * Left  -> Right -> Root
+     */
+    function _traverse(node) {
+      try {
+        if (node?.L) {
+          _traverse(node?.L);
+        }
+        results.push(node.data);
+        if (node?.R) {
+          _traverse(node?.R);
+        }
+      } catch (error) {
+        console.error(error);
+        return [];
+      }
+    }
+  }
+}
