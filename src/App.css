@@ -66,7 +66,7 @@ nav > *:not(hr) {
 nav > ul > li:nth-child(2) {
   padding-left: 20px;
 }
-nav summary >span:hover,
+nav summary > span:hover,
 #services li > span:hover {
   text-decoration: underline;
   background-color: var(--C7);
@@ -119,8 +119,6 @@ details > ul {
   width: inherit;
   height: inherit;
 }
-
-
 
 /* navigation pages component css  above.*/
 
@@ -289,20 +287,20 @@ details > ul {
 
 /* pages component css above */
 footer {
- 
   display: flex;
-  background-image: url('/assets/footer/wave.svg');
+  background-image: url("/assets/footer/wave.svg");
   background-repeat: no-repeat;
   /* background-position: center center; */
-  background-size:cover;
+  background-size: cover;
   width: 95dvw;
-  padding:10px;
-  flex-flow:column-reverse;
+  padding: 10px;
+  flex-flow: column-reverse;
   justify-content: center;
   align-items: center;
+  margin:auto;
 }
-footer *{
-  margin:5px;
+footer * {
+  margin: 5px;
 }
 #facility {
   width: 100dvw;
@@ -347,49 +345,55 @@ footer *{
   height: 50px;
   border-bottom: 5px solid white;
 }
-@media screen and (max-width:425px){
-  #logo-parent{
-    width:100px;
-    height:100px;
-    position:fixed;
-    top:5%;
-    right:5%;
-  
+@media screen and (max-width: 425px) {
+  #logo-parent {
+    width: 100px;
+    height: 100px;
+    position: fixed;
+    top: 5%;
+    right: 5%;
   }
-  #navbar-hr{
-    width:40%;
+  #navbar-hr {
+    width: 40%;
   }
-  #facility, #sapspage, #homepage, #aboutpage{
-    margin-top:100px;
+  #facility,
+  #sapspage,
+  #homepage,
+  #aboutpage {
+    margin-top: 100px;
   }
-  #homepage, #aboutpage {
-    width:80dvw;
+  #homepage,
+  #aboutpage {
+    width: 80dvw;
   }
-  
-  details{
-    width:200px;
+
+  details {
+    width: 200px;
   }
   #services > li {
-    margin-top:15px;
-  
+    margin-top: 15px;
   }
-  nav{
-    width:10%;
+  nav {
+    width: 10%;
   }
   nav > ul > li {
-    margin-top:15px;
+    margin-top: 15px;
   }
   footer {
     width: 90dvw;
-    margin:20px auto auto auto;
-    padding:10px;
-    flex-flow:column-reverse;
+    margin: 20px auto auto auto;
+    padding: 10px;
+    flex-flow: column-reverse;
     justify-content: center;
     align-items: center;
   }
-  footer *{
-    margin:5px;
+  footer * {
+    margin: 5px;
   }
 }
-
-  
+@media screen and (max-width: 600px) {
+  footer {
+    width: 90dvw;
+  }
+ 
+}
