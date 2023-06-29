@@ -3,9 +3,10 @@ import { useNavigate, useLocation } from "react-router-dom";
 import appLogo from "/assets/logo/gsl_logo.gif";
 import { HiHome } from "react-icons/hi";
 import { RiServiceFill } from "react-icons/ri";
-import { GiHealthNormal } from "react-icons/gi";
-import { GiPoliceOfficerHead } from "react-icons/gi";
+import { GiHealthNormal,GiPoliceOfficerHead } from "react-icons/gi";
 import { GrInfo } from "react-icons/gr";
+import { VscLaw } from "react-icons/vsc";
+
 export default function Nav() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -25,24 +26,21 @@ export default function Nav() {
 
               <ul id="services">
                 <li onClick={(e) => navigate("health-care")}>
-                  <span>
-                    {" "}
-                    <GiHealthNormal /> Health care
-                  </span>
+                  <GiHealthNormal /> Clinic's
                 </li>
 
                 <li onClick={(e) => navigate("protection-services")}>
-                  <GiPoliceOfficerHead /> Protection services
+                  <GiPoliceOfficerHead /> Police Station's
                 </li>
-                <li onClick={(e) => navigate("courts")}>courts</li>
+                <li onClick={(e) => navigate("courts")}>
+                  <VscLaw />
+                  Lower Courts
+                </li>
               </ul>
             </details>
           </li>
           <li onClick={(e) => navigate("about")}>
-            <span>
-              {" "}
-              <GrInfo /> About
-            </span>
+            <GrInfo /> About
           </li>
         </ul>
         <div
