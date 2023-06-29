@@ -10,8 +10,15 @@ self.addEventListener("install", (e) => {
           baseURL + "/",
           /href\s*=\s*['"]([^'"]*\.[^'"]+)['"]/gi // Regex matches any file extensions.
         ),
+        getMatchingFiles(
+          baseURL + "/assets",
+          /\/assets\/((?!serviceWorker\.js)[^'"]*\.js)/gi
+        )
+        
+        
       ])
         .then((promises) => {
+          console.log(promises)
           const cacheItems = [];
           for (let promise of promises) {
             if (promise.status == "fulfilled") {
