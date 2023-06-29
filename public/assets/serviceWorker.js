@@ -28,7 +28,7 @@ self.addEventListener("install", (e) => {
               console.error("Failed to add files to cache:", error);
             });
         })
-        .catch((err) => console.error(err));
+        .catch((error) => console.error(error));
     })()
   );
 
