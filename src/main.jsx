@@ -7,15 +7,15 @@ import App from "./App";
 
 
 /**
- * for production use "/serviceWorker.js"
+ * for production use "./assets/serviceWorker.js"
  *  for development use "./src/serviceWorker.js"
  */
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker
-      .register("./serviceWorker.js") 
+      .register("./assets/serviceWorker.js") 
       .then((registration) => {
-        console.log("service worker registered as: ", registration.scope);
+        // console.log("service worker registered as: ", registration.scope);
       })
       .catch((error) => console.error("service worker registration: ", error));
   });
