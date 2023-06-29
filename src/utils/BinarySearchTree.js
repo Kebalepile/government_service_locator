@@ -536,7 +536,7 @@ export class LowerCourtsBTS {
     return;
   }
   #traverseInsert(node, data) {
-    console.log(data["uuid"])
+    
     if (data["uuid"] < node.data["uuid"]) {
       if (!node?.L) {
         node.L = new Node(data);

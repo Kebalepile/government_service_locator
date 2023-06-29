@@ -36,10 +36,10 @@ export default function lowerCourts() {
   };
   const [suggestions, setSuggestions] = useState({ title: null, list: [] });
   const choices = [
-    "province",
-    "district magistrate",
-    "court type",
-    "court office",
+    "Province",
+    "Magisterial District",
+    "Court Type",
+    "Court Office",
   ];
 
   const searchBy = (type, input) => {
@@ -54,19 +54,14 @@ export default function lowerCourts() {
     if (input) {
       const cleanedType = xss(type);
       const cleanedInput = xss(input);
-
+     
+      
       let results, noError;
-      switch (cleanedType.toLowerCase().trim()) {
+      switch (cleanedType.trim()) {
         case choices[0]:
           results = searchByProvince(cleanedInput);
-          //   results = results.reduce((acc, cur) => {
-          //     acc = acc.concat(cur["police_stations"]["stations"]);
-          //     cur = cur["police_stations"]["stations"];
-          //     return acc;
-          //   }, []);
-
-          console.log(results);
           noError = searchError(results);
+        
           if (noError) {
             setSuggestions({
               title: `Lower Court(s) Suggestions for ${cleanedInput} Province.`,
@@ -78,8 +73,6 @@ export default function lowerCourts() {
           return;
         case choices[1]:
           results = searchByMagDistrict(cleanedInput);
-
-          console.log(results);
           noError = searchError(results);
           if (noError) {
             setSuggestions({
@@ -92,8 +85,6 @@ export default function lowerCourts() {
           return;
         case choices[2]:
           results = searchByCourtType(cleanedInput);
-
-          console.log(results);
           noError = searchError(results);
           if (noError) {
             setSuggestions({
@@ -106,8 +97,6 @@ export default function lowerCourts() {
           return;
         case choices[3]:
           results = searchByOffice(cleanedInput);
-
-          console.log(results);
           noError = searchError(results);
           if (noError) {
             setSuggestions({
@@ -153,12 +142,13 @@ export default function lowerCourts() {
 
   return (
     <>
-      <div className="page" id="sapspage">
+      <div className="page" id="courtpage">
         <h4>South African Lower Courts:</h4>
         <p>Search for court by:</p>
-        <ol>
+        
+        <ol style={{marginTop:"4px"}}>
           <li>Province</li>
-          <li>District Magistrate</li>
+          <li>Magisterial District</li>
           <li>Court Type</li>
           <li>Court Office</li>
         </ol>
@@ -288,7 +278,6 @@ export default function lowerCourts() {
                       });
                     }}
                   >
-                    {" "}
                     {facilityInfo["MagDistrict"]}
                   </p>
                 );
