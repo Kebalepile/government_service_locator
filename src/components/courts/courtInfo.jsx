@@ -15,7 +15,7 @@ export default function StationInfo() {
             </p>
             <p>
               <code>Office: </code>
-              {info["Office"]}{" "}
+              {info["Office"]}
             </p>
 
             {info["PreviouslyKnownAs"] && (
