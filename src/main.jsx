@@ -5,10 +5,15 @@ import ProtectionServicesProvider from "./contexts/saps/state";
 import LowerCourtsProvider from "./contexts/courts/state";
 import App from "./App";
 
+
+/**
+ * for production use "/serviceWorker.js"
+ *  for development use "./src/serviceWorker.js"
+ */
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker
-      .register("./src/serviceWorker.js")
+      .register("./serviceWorker.js") 
       .then((registration) => {
         console.log("service worker registered as: ", registration.scope);
       })
