@@ -291,7 +291,7 @@ details > ul {
 /* pages component css above */
 footer {
   display: flex;
-  background-image: url("/assets/footer/wave.svg");
+  background-image: url("/assets/footer_svg/wave.svg");
   background-repeat: no-repeat;
   /* background-position: center center; */
   background-size: cover;

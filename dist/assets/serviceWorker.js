@@ -1,30 +1,32 @@
-const cacheName = "DriveMate";
+const cacheName = "ServiceLocator";
 
 self.addEventListener("install", (e) => {
   e.waitUntil(
     (function () {
-      Promise.all([
-        getMatchingFiles(
-          "./web_app_icons",
-          /href\s*=\s*['"]([^'"]*\.png)['"]/gi
-        ),
-        getMatchingFiles(
-          "./logo",
-          /href\s*=\s*['"]([^'"]*\.(png|gif))['"]/gi
-        ),
-        getMatchingFiles(
-          "./footer",
-          /href\s*=\s*['"]([^'"]*\.svg)['"]/gi
-        ),
-        getMatchingFiles("/", /href\s*=\s*['"]([^'"]*\.(css|js))['"]/gi),
-        getMatchingFiles("/", /href\s*=\s*['"]([^'"]*\.json)['"]/gi),
-      ])
-        .then((values) => {
-          let cacheItems = ["/"];
-          cacheItems = cacheItems.concat(...values);
-          let uniqueRequests = [...new Set(cacheItems)];
+      const baseURL = self.location.origin;
 
-          caches.open(cacheName).then((cache) => cache.addAll(uniqueRequests));
+      Promise.allSettled([
+        getMatchingFiles(
+          baseURL + "/",
+          /href\s*=\s*['"]([^'"]*\.[^'"]+)['"]/gi // Regex matches any file extensions.
+        ),
+      ])
+        .then((promises) => {
+          const cacheItems = [];
+          for (let promise of promises) {
+            if (promise.status == "fulfilled") {
+              cacheItems.push(...promise.value);
+            }
+          }
+
+          const uniqueRequests = [...new Set(cacheItems)];
+
+          caches
+            .open(cacheName)
+            .then((cache) => cache.addAll(uniqueRequests))
+            .catch((error) => {
+              console.error("Failed to add files to cache:", error);
+            });
         })
         .catch((err) => console.error(err));
     })()
@@ -39,30 +41,36 @@ self.addEventListener("active", (e) => {
 self.addEventListener("fetch", (e) => {
   console.log("service worker ready to fetch data.");
 });
-
 function getMatchingFiles(directory, regex) {
   return new Promise(function (resolve, reject) {
-    fetch(directory)
-      .then(function (response) {
-        if (!response.ok) {
-          throw new Error("Failed to fetch directory");
-        }
-        return response.text();
-      })
-      .then(function (html) {
-        let pattern = /href\s*=\s*['"]([^'"]*\.png)['"]/gi;
+    try {
+      fetch(directory)
+        .then(function (response) {
+          if (!response.ok) {
+            throw new Error("Failed to fetch directory");
+          }
+          return response.text();
+        })
+        .then(function (html) {
+          const fileMatches = html.match(regex);
 
-        const fileMatches = html.match(regex);
+          if (!fileMatches || fileMatches.length === 0) {
+            resolve([]);
+          }
 
-        if (!fileMatches || fileMatches.length === 0) {
-          resolve([]);
-        }
-        const files = fileMatches.map(function (match) {
-          return match.replace(/.*href="(.*)"/i, "$1");
-        });
+          const files = fileMatches.map(function (match) {
+            return match.replace(/.*href="(.*)"/i, "$1");
+          });
 
-        resolve(files);
-      })
-      .catch(reject);
+          const absoluteFiles = files.map(function (file) {
+            return new URL(file, directory).href;
+          });
+
+          resolve(absoluteFiles);
+        })
+        .catch(reject);
+    } catch (error) {
+      reject(error);
+    }
   });
 }

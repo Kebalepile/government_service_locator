@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import appLogo from "/assets/logo/gsl_logo.gif";
+import appLogo from "/assets/logo_images/gsl_logo.gif";
 import { HiHome } from "react-icons/hi";
 import { RiServiceFill } from "react-icons/ri";
 import { GiHealthNormal,GiPoliceOfficerHead } from "react-icons/gi";

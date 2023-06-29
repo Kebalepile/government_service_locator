@@ -10,9 +10,6 @@ export default function FooterNavigation() {
             kmotshoana@gmail.com
           </a>
         </h6>
-        {/* <h6>
-          Cell Phone: <a href="tel:+27672718374">Call me</a>
-        </h6> */}
       </section>
       <h6>© K.T Motshoana 2023</h6>
     </footer>
