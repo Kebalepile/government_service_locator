@@ -1,5 +1,5 @@
 # Goverment-Service-Locator
-
+Checkout [Demo](https://jazzy-palmier-258997.netlify.app/)
 ## Overview
 
 This project aims to develop a web app that allows End-Users to easily find and locate government services in RSA.
